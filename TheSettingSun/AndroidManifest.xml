@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.thesettingsun.GameActivity"
+            android:label="@string/title_activity_game"
+            android:parentActivityName="com.example.thesettingsun.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.thesettingsun.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
