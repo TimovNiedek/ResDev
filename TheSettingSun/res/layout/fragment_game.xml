@@ -8,11 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.thesettingsun.GameActivity$PlaceholderFragment" >
 
+    <GridView
+        android:id="@+id/gridView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:numColumns="4" >
+
+    </GridView>
+
     <com.example.thesettingsun.Block
-        android:id="@+id/block1"
+        android:id="@+id/speelsteen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>
