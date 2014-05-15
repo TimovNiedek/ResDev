@@ -1,6 +1,6 @@
-# Research & Development
+xq# Research & Development
 ## Structuur & Fases
-Een poging om structuur aan te brengen in de ontwikkeling van Hot Meals app. Ik stel voor de ontwikkeling in fases te doen van één week ieder, waarin incrementeel de app groeit in functionaliteit en afwerking.
+Dit document dient als een poging om structuur aan te brengen in de ontwikkeling van Hot Meals app. Ik stel voor de ontwikkeling in fases te doen van één week ieder, waarin incrementeel de app groeit in functionaliteit en afwerking.
 ### Fase 1
 1. De app bevat de volgende functionaliteit:
 	- Vier *views* volgens de huidige storyboard:
@@ -59,17 +59,26 @@ Omdat deze verdeling niet perfect is kan het zijn dat één onderdeel meer werk 
 - Sander: 0 uur.
 - Jaco: 0 uur.
 - Timo: 0 uur.
-- Daniel: 2 uur.
+- Daniel: 2  uur.
 ## Feedback
-> Just to be clear, I’m not a professional ‘taakverdeling maker’. This being said, I am open to any and all criticism.  Bron: [Know Your Meme: In This Moment I Am Euphoric].
+> Just to be clear, I’m not a professional ‘taakverdeling maker’. This being said, I am open to any and all criticism.  
+>   
+> Bron: [Know Your Meme: In This Moment I Am Euphoric][1].
 
 Vragen, klachten of commentaar? Email: daniel@roeven.com, subject "Haatmail".
 
 Zonder grappen, holla at a boy.
-## Woordenboek:
+## Terminologie:
 - **View**: alles wat in één scherm te zien is. Bij iOS komt dit ook precies overeen met één object. Met behulp van standaardlibraries is er te wisselen tussen views.
-- **Radio button**: radio buttons of keuzerondjes zijn keuzemogelijkheden in een GUI, waarbij maar één keuze tegelijkertijd geselecteerd kan zijn. Keuzerondjes die bij elkaar horen, noemt men een groepsvak. Bron: [Wikipedia: Keuzerondje].
-- **Check box**: Een check box of selectievakje, ook wel aankruisvakje, wordt in veel GUI's gebruikt om de gebruiker iets aan te laten kruisen of aan te vinken. Dit aanvinken kan bij alle selectievakjes in een groep, dit in tegenstelling tot een groepsvak keuzerondjes. Bron: [Wikipedia: Selectievakje].
-- **Slider**: A slider, also known as track bar in Microsoft literature, is an object in a GUI with which a user may set a value by moving an indicator, usually in a horizontal fashion. In some cases the user may also click on a point on the slider to change the setting. It is different from a scrollbar in that it is typically used to adjust a value without changing the format of the display or the other information on the screen. Bron: [Wikipedia: Slider].
-- **Scrollbar**: Een of scrollbar of schuifbalk is een verticale balk die zich meestal bevindt aan de rechterkant van een GUI. Een schuifbalk verschijnt als er in een venster meer gegevens moeten staan dan de ruimte in het venster toelaat. Bron: [Wikipedia: Schuifbalk].
-- **Front and back ends**: In computer science, the front end is responsible for collecting input in various forms from the user and processing it to conform to a specification the back end can use. Bron: [Wikipedia: Back end].
+- **Radio button**: radio buttons of keuzerondjes zijn keuzemogelijkheden in een GUI, waarbij maar één keuze tegelijkertijd geselecteerd kan zijn. Keuzerondjes die bij elkaar horen, noemt men een groepsvak. Bron: [Wikipedia: Keuzerondje][2].
+- **Check box**: Een check box of selectievakje, ook wel aankruisvakje, wordt in veel GUI's gebruikt om de gebruiker iets aan te laten kruisen of aan te vinken. Dit aanvinken kan bij alle selectievakjes in een groep, dit in tegenstelling tot een groepsvak keuzerondjes. Bron: [Wikipedia: Selectievakje][3].
+- **Slider**: A slider, also known as track bar in Microsoft literature, is an object in a GUI with which a user may set a value by moving an indicator, usually in a horizontal fashion. In some cases the user may also click on a point on the slider to change the setting. It is different from a scrollbar in that it is typically used to adjust a value without changing the format of the display or the other information on the screen. Bron: [Wikipedia: Slider][4].
+- **Scrollbar**: Een of scrollbar of schuifbalk is een verticale balk die zich meestal bevindt aan de rechterkant van een GUI. Een schuifbalk verschijnt als er in een venster meer gegevens moeten staan dan de ruimte in het venster toelaat. Bron: [Wikipedia: Schuifbalk][5].
+- **Front and back ends**: In computer science, the front end is responsible for collecting input in various forms from the user and processing it to conform to a specification the back end can use. Bron: [Wikipedia: Back end][6].
+
+[1]:	http://knowyourmeme.com/memes/in-this-moment-i-am-euphoric
+[2]:	http://nl.wikipedia.org/wiki/Keuzerondje
+[3]:	http://nl.wikipedia.org/wiki/Selectievakje
+[4]:	http://en.wikipedia.org/wiki/Slider_(computing)
+[5]:	http://nl.wikipedia.org/wiki/Schuifbalk
+[6]:	http://en.wikipedia.org/wiki/Back-end
