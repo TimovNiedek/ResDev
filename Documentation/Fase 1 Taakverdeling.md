@@ -1,4 +1,4 @@
-xq# Research & Development
+# Research & Development
 ## Structuur & Fases
 Dit document dient als een poging om structuur aan te brengen in de ontwikkeling van Hot Meals app. Ik stel voor de ontwikkeling in fases te doen van één week ieder, waarin incrementeel de app groeit in functionaliteit en afwerking.
 ### Fase 1
@@ -26,6 +26,7 @@ Dit document dient als een poging om structuur aan te brengen in de ontwikkeling
 		- Extra benodigdheden
 		In ieder geval goed om in het achterhoofd te houden dat de XML layout niet vast ligt, maar kan veranderen naarmate we meer functionaliteit toevoegen. Softcoden dus!
 	- Er moet van deze lijst gelezen én geschreven kunnen worden.
+
 ## Taakverdeling
 Om elkaar niet in de weg te zitten en (deels) onafhankelijk van elkaar te kunnen werken stel ik voor enige taakverdeling in te brengen. Sander gaf mij ook de indruk hier achter te staan. Een voorlopige taakverdeling (kan veranderd worden, holla at me):
 1. Sander zet de *back-end* van een Android app op. Dat wil zeggen:
@@ -47,6 +48,7 @@ Om elkaar niet in de weg te zitten en (deels) onafhankelijk van elkaar te kunnen
 	- Welke Android libraries dienen hiervoor?
 	- Wat zijn standaard design conventies op Android? Hoe implementeren we deze? Denk bijvoorbeeld aan: een *scrollbar* die moet verschijnen wanneer een Recept niet in zijn geheel getoond kan worden.
 	Verder heb ik de storyboard, flow van het programma, en taakverdeling bedacht (en schrijf ik dit document, meta yo).
+
 ## Samenwerking
 Er moet natuurlijk veel overleg plaatsvinden, in het specifiek bij de volgende onderdelen:
 - Sander en Jaco: XML en het inlezen en schrijven hiervan.
@@ -54,12 +56,14 @@ Er moet natuurlijk veel overleg plaatsvinden, in het specifiek bij de volgende o
 - Timo en Sander: Hoe implementeren jullie de zoekfunctie?
 - Allemaal: data-representatie. Dit is een van de belangrijkste punten: hoe wordt alles gerepresenteerd? De strings die uit een input komen, hoe moeten die er uit zien zodat er mee gezocht kan worden? De recepten, hoe worden deze gepresenteerd zodat ze gedisplayed kunnen worden?
 - Timo en Jaco: wat wordt een handig format voor XML, met betrekking tot zoeken?
+
 ## Voortgang en workload verdeling
 Omdat deze verdeling niet perfect is kan het zijn dat één onderdeel meer werk is dan een andere. Houd even bij hoeveel werk je er in steekt en zorg dat het eerlijk blijft!
 - Sander: 0 uur.
 - Jaco: 0 uur.
 - Timo: 0 uur.
 - Daniel: 2  uur.
+
 ## Feedback
 > Just to be clear, I’m not a professional ‘taakverdeling maker’. This being said, I am open to any and all criticism.  
 >   
