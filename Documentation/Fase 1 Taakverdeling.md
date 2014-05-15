@@ -29,6 +29,7 @@ Dit document dient als een poging om structuur aan te brengen in de ontwikkeling
 
 ## Taakverdeling
 Om elkaar niet in de weg te zitten en (deels) onafhankelijk van elkaar te kunnen werken stel ik voor enige taakverdeling in te brengen. Sander gaf mij ook de indruk hier achter te staan. Een voorlopige taakverdeling (kan veranderd worden, holla at me):
+
 1. Sander zet de *back-end* van een Android app op. Dat wil zeggen:
 	- Vier *views* die onafhankelijk van elkaar bestaan en kunnen wisselen in elkaar. Het lijkt me dat dit een zeer standaard functionaliteit is van Android, en hier zou weinig dubbelzinnigheid in moeten zitten, hoop ik (zoals er wel is bij het creëren van een game-*view*).
 	- Denk ook na over dingen als I/O, verschillende klassen die verschillende dingen doen (zoekalgoritme komt niet in de klasse voor search waarschijnlijk) etc. Wat wordt de structuur van onze code?
