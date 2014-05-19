@@ -63,7 +63,7 @@ Omdat deze verdeling niet perfect is kan het zijn dat één onderdeel meer werk 
 - Sander: 0 uur.
 - Jaco: 0 uur.
 - Timo: 0 uur.
-- Daniel: 2  uur.
+- Daniel: 3,5  uur.
 
 ## Feedback
 > Just to be clear, I’m not a professional ‘taakverdeling maker’. This being said, I am open to any and all criticism.  
