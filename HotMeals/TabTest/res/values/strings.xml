@@ -4,5 +4,10 @@
     <string name="app_name">Hot Meals</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="ingredients_search">Search by ingredients:</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="budget_search">Search by maximum price:</string>
+    <string name="time_search">Search by cooking time:</string>
+    <string name="search">Search</string>
 
 </resources>
