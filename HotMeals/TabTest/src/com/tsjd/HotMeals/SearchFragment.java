@@ -1,25 +1,24 @@
 package com.tsjd.HotMeals;
 
+import java.util.ArrayList;
+
+import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
 
 public class SearchFragment extends Fragment 
 {
-	private MultiAutoCompleteTextView ingredients;
+	private MultiAutoCompleteTextView ingredientsView;
 	private SeekBar budgetBar;
 	private TextView budgetText;
 	private SeekBar timeBar;
@@ -27,9 +26,8 @@ public class SearchFragment extends Fragment
 	private Button searchButton;
 	//private TextView searchText;
 	
-	private static final String[] INGREDIENTS = new String[]{
-		"Spaghetti", "Rijst", "Komkommer", "Risotto"
-	};
+	private DataBaseHelper recipesHelper;
+	private ArrayList<String> ingredients;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,30 +39,36 @@ public class SearchFragment extends Fragment
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, INGREDIENTS);
+        setRecipesHelper();
+        setIngredients();
+        //initializeUI(v);
         
-        ingredients = (MultiAutoCompleteTextView) v.findViewById(R.id.multiAutoCompleteTextView2);
-        ingredients.setAdapter(adapter);
-        ingredients.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        return v;
+    }
+    
+    /**
+     * Voeg listeners toe aan de sliders, textview en button
+     * @param v De parent view van de UI elementen
+     *//*
+    private void initializeUI(View v)
+    {
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, INGREDIENTS);
+        
+        ingredientsView = (MultiAutoCompleteTextView) v.findViewById(R.id.multiAutoCompleteTextView2);
+        ingredientsView.setAdapter(adapter);
+        ingredientsView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         
         budgetBar = (SeekBar) v.findViewById(R.id.seekBar1);
         budgetText = (TextView) v.findViewById(R.id.budgetTextView);
         budgetBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				// TODO Auto-generated method stub
 				budgetText.setText("$" + (double)(progress)/10 + "0");
 			}
 		});
@@ -74,21 +78,14 @@ public class SearchFragment extends Fragment
         timeBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
-				// TODO Auto-generated method stub
 				int hours = progress / 60;
 				int mins = progress % 60;
 				timeText.setText(hours + "h " + mins + "m");
@@ -101,9 +98,9 @@ public class SearchFragment extends Fragment
         searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ingredients.performValidation();
+				ingredientsView.performValidation();
 				
-				String ingredientsText = ingredients.getText().toString();
+				String ingredientsText = ingredientsView.getText().toString();
 				if (ingredientsText.equals("")) ingredientsText = "niet ingevuld";
 				String budget = budgetText.getText().toString();
 				if (budget.equals("$0.00")) budget = "niet ingevuld";
@@ -112,11 +109,44 @@ public class SearchFragment extends Fragment
 				
 				/*searchText.setText(	"Ingredients=" + ingredientsText + 
 									"\nBudget=" + budget + 
-									"\nTime=" + time);*/
+									"\nTime=" + time);*//*
 				
 			}
 		});
-        
-        return v;
+    }
+    */
+    
+    private void setRecipesHelper()
+    {
+    	recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
+    }
+    
+    private void setIngredients()
+    {
+    	Cursor cursor = getRecipeMatches();
+    	
+    	for (int i = 0; i < cursor.getCount(); i++)
+    	{
+    		StringBuilder ingredient;
+    		
+    	}
+    }
+    
+    private Cursor getRecipeMatches() {
+    	try{
+    		
+    		Cursor cursor = recipesHelper.getReadableDatabase().query(true, "HotMeals", new String[]{"Ingrediënten"}, null, null, null, null, null, null);
+    		if (cursor == null) {
+                return null;
+            } else if (!cursor.moveToFirst()) {
+                cursor.close();
+                return null;
+            }
+            return cursor;
+    	}
+    	catch (SQLException e)
+    	{
+    		throw new Error(e);
+    	}   
     }
 }

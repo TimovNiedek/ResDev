@@ -2,12 +2,12 @@ package com.tsjd.HotMeals;
 
 import java.io.IOException;
 
-import com.example.tabtest.R;
-
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+
+import com.example.tabtest.R;
 
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
@@ -21,10 +21,10 @@ public class MainActivity extends FragmentActivity {
         
         setContentView(R.layout.activity_main);
         createDatabase();
-	 	
+        
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
-
+                
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 FragmentTab.class, null);
@@ -56,5 +56,12 @@ public class MainActivity extends FragmentActivity {
 	 		throw sqle;
 	 
 	 	}
+	 	
+	 	
+    }
+    
+    public DataBaseHelper getDatabaseHelper()
+    {
+    	return myDbHelper;
     }
 }
