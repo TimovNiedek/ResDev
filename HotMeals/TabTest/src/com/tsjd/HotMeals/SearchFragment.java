@@ -6,12 +6,18 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
@@ -39,9 +45,11 @@ public class SearchFragment extends Fragment
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         
+        ingredients = new ArrayList<String>();
+        
         setRecipesHelper();
         setIngredients();
-        //initializeUI(v);
+        initializeUI(v);
         
         return v;
     }
@@ -49,14 +57,23 @@ public class SearchFragment extends Fragment
     /**
      * Voeg listeners toe aan de sliders, textview en button
      * @param v De parent view van de UI elementen
-     *//*
+     */
     private void initializeUI(View v)
     {
-    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, INGREDIENTS);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, ingredients);
         
         ingredientsView = (MultiAutoCompleteTextView) v.findViewById(R.id.multiAutoCompleteTextView2);
         ingredientsView.setAdapter(adapter);
         ingredientsView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        
+        ingredientsView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				ingredientsView.requestFocusFromTouch();
+				return true;
+			}
+		});
         
         budgetBar = (SeekBar) v.findViewById(R.id.seekBar1);
         budgetText = (TextView) v.findViewById(R.id.budgetTextView);
@@ -109,12 +126,11 @@ public class SearchFragment extends Fragment
 				
 				/*searchText.setText(	"Ingredients=" + ingredientsText + 
 									"\nBudget=" + budget + 
-									"\nTime=" + time);*//*
+									"\nTime=" + time);*/
 				
 			}
 		});
     }
-    */
     
     private void setRecipesHelper()
     {
@@ -123,19 +139,43 @@ public class SearchFragment extends Fragment
     
     private void setIngredients()
     {
-    	Cursor cursor = getRecipeMatches();
+    	Cursor cursor = getIngredientMatches();
     	
-    	for (int i = 0; i < cursor.getCount(); i++)
-    	{
-    		StringBuilder ingredient;
+    	do{
+    		String currentElement = cursor.getString(0);
+    		/*StringBuilder ingredient = new StringBuilder();		oude code, bewaard voor mogelijke terugdraaiings
     		
-    	}
+    		for (int i = 0; i < currentElement.length(); i++) 
+    		{
+    			char currentChar = currentElement.charAt(i);
+    			Log.v("ingredients", "" + currentChar);
+				if (currentChar != ',' && currentChar != ' ')
+				{
+					ingredient.append(currentChar);
+				} else if (currentChar == ',') {
+					addToAutocomplete(ingredient.toString());
+					ingredient = new StringBuilder();
+				}
+			}*/
+    		
+    		addToAutocomplete(currentElement);
+    	} while (cursor.moveToNext());
     }
     
-    private Cursor getRecipeMatches() {
+    private void addToAutocomplete(String ingredient)
+    {
+		Log.d("addToAutocomplete", ingredients.contains(ingredient) + " for " + ingredient);
+		if (!ingredients.contains(ingredient))
+		{
+			ingredients.add(ingredient);
+			Log.d("setIngredients", ingredient + " added.");
+		}
+    }
+    
+    private Cursor getIngredientMatches() {
     	try{
     		
-    		Cursor cursor = recipesHelper.getReadableDatabase().query(true, "HotMeals", new String[]{"Ingrediënten"}, null, null, null, null, null, null);
+    		Cursor cursor = recipesHelper.getReadableDatabase().query(true, "Ingrediënten", new String[]{"Naam"}, null, null, null, null, null, null);
     		if (cursor == null) {
                 return null;
             } else if (!cursor.moveToFirst()) {
@@ -148,5 +188,49 @@ public class SearchFragment extends Fragment
     	{
     		throw new Error(e);
     	}   
+    }
+    
+    private Cursor search(ArrayList<String> ingredients, int maxPrice, int minutes)
+    {
+    	/* SELECT * 
+    	 * FROM HotMeals H, Ingrediënten I
+    	 * WHERE H.prijs <= maxPrice AND H.tijd <= minutes
+    	 * AND COUNT(
+    	 * 		SELECT Naam FROM Ingrediënten I
+    	 * 		WHERE H.ID = I.ID
+    	 * 		AND (I.Naam = ingredients[0] OR I.Naam = ingredients[1] OR ......)
+    	 * 		)
+    	 * > 0		
+    	 * ORDER BY COUNT(
+    	 * 		SELECT Naam FROM Ingrediënten I
+    	 * 		WHERE H.ID = I.ID
+    	 * 		AND (I.Naam = ingredients[0] OR I.Naam = ingredients[1] OR ......)
+    	 * 		) DESC, H.prijs DESC, H.tijd DESC
+    	 */
+    	
+    	StringBuilder query = new StringBuilder();
+    	StringBuilder subQuery = new StringBuilder();
+    	subQuery.append("SELECT * FROM Ingrediënten I"
+    			+ " WHERE H.ID = I.ID"
+    			+ " AND (");
+    	
+    	for (int i = 0; i < ingredients.size(); i++)
+    	{
+    		String ingredient = ingredients.get(i);
+    		subQuery.append("I.Naam = " + ingredient);
+    		if (i < ingredients.size() - 1) subQuery.append(" OR ");
+    	}
+    	
+    	subQuery.append(")");
+    	
+    	query.append("SELECT * FROM HotMeals H, Ingrediënten I"
+    						+ "WHERE H.prijs <= " + maxPrice
+    						+ " AND H.tijd <= " + minutes
+    						+ " AND COUNT(" + subQuery + ") > 0"
+    						+ " ORDER BY COUNT(" + subQuery + ") DESC, H.prijs DESC, H.tijd DESC");
+    	
+    	Log.d("search", query.toString());
+    	
+    	return recipesHelper.getReadableDatabase().rawQuery(query.toString(), null);
     }
 }

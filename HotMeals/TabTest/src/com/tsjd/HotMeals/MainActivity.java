@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.widget.TabHost.OnTabChangeListener;
 
 import com.example.tabtest.R;
 
@@ -34,6 +35,11 @@ public class MainActivity extends FragmentActivity {
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab3").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
                 SearchFragment.class, null);
+        mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
+            public void onTabChanged(String tabID) {    
+            	mTabHost.clearFocus(); 
+            }   
+        }); 
     }
     
     private void createDatabase()

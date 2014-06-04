@@ -89,7 +89,6 @@
         android:ems="10"
         android:hint="@string/ingredients" >
 
-        <requestFocus />
     </MultiAutoCompleteTextView>
 
 </RelativeLayout>
