@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:max="100" />
+        android:max="1000" 
+        android:progress = "1000"/>
 
     <TextView
         android:id="@+id/budgetTextView"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/seekBar1"
         android:layout_below="@+id/seekBar1"
-        android:text="€0.00"
+        android:text="€10.00"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/timeSeekBar"
         android:layout_below="@+id/timeSeekBar"
-        android:text="0h 0m" />
+        android:text="2h 0m" />
 
     <TextView
         android:id="@+id/textView3"
@@ -41,14 +42,6 @@
         android:layout_below="@+id/budgetTextView"
         android:layout_marginTop="24dp"
         android:text="@string/time_search" />
-
-    <SeekBar
-        android:id="@+id/timeSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:max="120" />
 
     <Button
         android:id="@+id/searchButton"
@@ -62,33 +55,50 @@
         android:text="@string/search" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="58dp"
-        android:text="@string/ingredients_search" />
-
-    <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/seekBar1"
-        android:layout_below="@+id/multiAutoCompleteTextView2"
+        android:layout_below="@+id/multiAutoCompleteTextView1"
         android:layout_marginTop="24dp"
         android:text="@string/budget_search" />
 
-    <MultiAutoCompleteTextView
-        android:id="@+id/multiAutoCompleteTextView2"
+    <EditText
+        android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/timeTextView"
+        android:ems="10" >
+
+    </EditText>
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
         android:layout_alignRight="@+id/seekBar1"
         android:layout_below="@+id/textView2"
         android:ems="10"
-        android:hint="@string/ingredients" >
+        android:hint="@string/ingredients" />
 
-    </MultiAutoCompleteTextView>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/multiAutoCompleteTextView1"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="75dp"
+        android:text="@string/ingredients_search" />
+
+    <SeekBar
+        android:id="@+id/timeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:max="120"
+        android:progress = "120" />
 
 </RelativeLayout>

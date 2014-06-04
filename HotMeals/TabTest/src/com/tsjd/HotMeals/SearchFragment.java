@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment
     {
     	ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, ingredients);
         
-        ingredientsView = (MultiAutoCompleteTextView) v.findViewById(R.id.multiAutoCompleteTextView2);
+        ingredientsView = (MultiAutoCompleteTextView) v.findViewById(R.id.multiAutoCompleteTextView1);
         ingredientsView.setAdapter(adapter);
         ingredientsView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         
@@ -86,7 +86,7 @@ public class SearchFragment extends Fragment
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				budgetText.setText("$" + (double)(progress)/10 + "0");
+				budgetText.setText("$" + (double)(progress)/100 + "0");
 			}
 		});
         
@@ -118,18 +118,45 @@ public class SearchFragment extends Fragment
 				ingredientsView.performValidation();
 				
 				String ingredientsText = ingredientsView.getText().toString();
-				if (ingredientsText.equals("")) ingredientsText = "niet ingevuld";
+				//if (ingredientsText.equals("")) ingredientsText = "niet ingevuld";
 				String budget = budgetText.getText().toString();
 				if (budget.equals("$0.00")) budget = "niet ingevuld";
 				String time = timeText.getText().toString();
 				if (time.equals("0h 0m")) time = "niet ingevuld";
 				
-				/*searchText.setText(	"Ingredients=" + ingredientsText + 
-									"\nBudget=" + budget + 
-									"\nTime=" + time);*/
+				Cursor cursor;
 				
+				if (ingredientsText.equals("")) {
+					cursor = search(ingredientsTextToArray(ingredientsText), budgetBar.getProgress(), timeBar.getProgress());
+				} else {
+					cursor = search(null, budgetBar.getProgress(), timeBar.getProgress());
+				}
+				getRecipesFromCursor(cursor);
 			}
 		});
+    }
+    
+    private ArrayList<String> ingredientsTextToArray(String text)
+    {
+    	ArrayList<String> ingredients = new ArrayList<String>();
+    	String replacedText = text.replaceAll(", ", "-");
+    	Log.d("textToArray", "text is: " + replacedText);
+    	if (replacedText.contains("-")) 
+    	{	
+    		Log.d("textToArray", "text.contains(\"-\") is true");
+    		
+			String[] ingredientsString;
+			ingredientsString  = replacedText.split("-");
+			Log.d("textToArray", "length: " + ingredientsString.length);
+    		for (int i = 0; i < ingredientsString.length; i++)
+	    	{	
+	    		ingredients.add(ingredientsString[i]);
+	    		Log.d("textToArray", ingredientsString[i]);
+	    	}
+    	} else {
+    		ingredients.add(text);
+    	}
+    	return ingredients;
     }
     
     private void setRecipesHelper()
@@ -143,23 +170,10 @@ public class SearchFragment extends Fragment
     	
     	do{
     		String currentElement = cursor.getString(0);
-    		/*StringBuilder ingredient = new StringBuilder();		oude code, bewaard voor mogelijke terugdraaiings
-    		
-    		for (int i = 0; i < currentElement.length(); i++) 
-    		{
-    			char currentChar = currentElement.charAt(i);
-    			Log.v("ingredients", "" + currentChar);
-				if (currentChar != ',' && currentChar != ' ')
-				{
-					ingredient.append(currentChar);
-				} else if (currentChar == ',') {
-					addToAutocomplete(ingredient.toString());
-					ingredient = new StringBuilder();
-				}
-			}*/
     		
     		addToAutocomplete(currentElement);
     	} while (cursor.moveToNext());
+    	cursor.close();
     }
     
     private void addToAutocomplete(String ingredient)
@@ -175,7 +189,7 @@ public class SearchFragment extends Fragment
     private Cursor getIngredientMatches() {
     	try{
     		
-    		Cursor cursor = recipesHelper.getReadableDatabase().query(true, "Ingrediënten", new String[]{"Naam"}, null, null, null, null, null, null);
+    		Cursor cursor = recipesHelper.getReadableDatabase().query(true, "Ingredienten", new String[]{"Naam"}, null, null, null, null, null, null);
     		if (cursor == null) {
                 return null;
             } else if (!cursor.moveToFirst()) {
@@ -192,45 +206,55 @@ public class SearchFragment extends Fragment
     
     private Cursor search(ArrayList<String> ingredients, int maxPrice, int minutes)
     {
-    	/* SELECT * 
-    	 * FROM HotMeals H, Ingrediënten I
-    	 * WHERE H.prijs <= maxPrice AND H.tijd <= minutes
-    	 * AND COUNT(
-    	 * 		SELECT Naam FROM Ingrediënten I
-    	 * 		WHERE H.ID = I.ID
-    	 * 		AND (I.Naam = ingredients[0] OR I.Naam = ingredients[1] OR ......)
-    	 * 		)
-    	 * > 0		
-    	 * ORDER BY COUNT(
-    	 * 		SELECT Naam FROM Ingrediënten I
-    	 * 		WHERE H.ID = I.ID
-    	 * 		AND (I.Naam = ingredients[0] OR I.Naam = ingredients[1] OR ......)
-    	 * 		) DESC, H.prijs DESC, H.tijd DESC
+    	/* 
+    	 * SELECT H.ID, H.Naam
+	     * FROM HotMeals H
+		 * INNER JOIN Ingredienten I ON (H.ID = I.ID)
+		 * WHERE H.prijs <= 120 AND H.tijd <= 1000 
+		 * AND I.Naam IN ("Kaas", "Ham")
+		 * GROUP BY I.ID
+     	 * ORDER BY COUNT(*) DESC, H.prijs DESC, H.tijd DESC
     	 */
     	
-    	StringBuilder query = new StringBuilder();
-    	StringBuilder subQuery = new StringBuilder();
-    	subQuery.append("SELECT * FROM Ingrediënten I"
-    			+ " WHERE H.ID = I.ID"
-    			+ " AND (");
+    	Log.d("Search", "Searching with maxPrice: " + maxPrice + " minutes: " + minutes);
     	
-    	for (int i = 0; i < ingredients.size(); i++)
+    	
+    	StringBuilder query = new StringBuilder();
+    	query.append("SELECT H.ID, H.Naam "
+    			+ "FROM HotMeals H "
+    			+ "INNER JOIN Ingredienten I ON (H.ID = I.ID) "
+    			+ "WHERE H.prijs <= \"" + maxPrice + "\"  AND H.tijd <= \"" + minutes + "\" ");
+    	
+    	if (ingredients != null)
     	{
-    		String ingredient = ingredients.get(i);
-    		subQuery.append("I.Naam = " + ingredient);
-    		if (i < ingredients.size() - 1) subQuery.append(" OR ");
+    		query.append("AND I.NAAM IN (");
+	    	for (int i = 0; i < ingredients.size(); i++)
+	    	{
+	    		String ingredient = ingredients.get(i);
+	    		query.append("\"" + ingredient + "\"");
+	    		if (i < ingredients.size() - 1) query.append(", ");
+	    	}
+	    	query.append(") ");
     	}
     	
-    	subQuery.append(")");
-    	
-    	query.append("SELECT * FROM HotMeals H, Ingrediënten I"
-    						+ "WHERE H.prijs <= " + maxPrice
-    						+ " AND H.tijd <= " + minutes
-    						+ " AND COUNT(" + subQuery + ") > 0"
-    						+ " ORDER BY COUNT(" + subQuery + ") DESC, H.prijs DESC, H.tijd DESC");
+    	query.append("GROUP BY I.ID "
+    			+ "ORDER BY COUNT(*) DESC, H.prijs DESC, H.tijd DESC");
     	
     	Log.d("search", query.toString());
     	
-    	return recipesHelper.getReadableDatabase().rawQuery(query.toString(), null);
+    	Cursor cursor;
+		try {
+			cursor = recipesHelper.getReadableDatabase().rawQuery(query.toString(), null);
+		} catch (SQLException e) {
+			throw new Error(e);
+		}
+    	
+    	return cursor;
+    }
+    
+    private void getRecipesFromCursor(Cursor c)
+    {
+    	Log.d("getRecipesFromCursor", c.getCount() + "");
+    	c.close();
     }
 }

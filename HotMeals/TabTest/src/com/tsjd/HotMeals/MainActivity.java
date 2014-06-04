@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity {
             public void onTabChanged(String tabID) {    
             	mTabHost.clearFocus(); 
             }   
-        }); 
+        });
     }
     
     private void createDatabase()

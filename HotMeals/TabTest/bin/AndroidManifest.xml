@@ -16,8 +16,7 @@
         <activity
             android:name="com.tsjd.HotMeals.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
