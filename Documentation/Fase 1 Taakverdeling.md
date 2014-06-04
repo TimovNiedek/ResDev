@@ -62,8 +62,8 @@ Er moet natuurlijk veel overleg plaatsvinden, in het specifiek bij de volgende o
 Omdat deze verdeling niet perfect is kan het zijn dat één onderdeel meer werk is dan een andere. Houd even bij hoeveel werk je er in steekt en zorg dat het eerlijk blijft!
 - Sander: 4 uur.
 - Jaco: 0 uur. (???)
-- Timo: 0 uur. (???)
-- Daniel: 7,5  uur.
+- Timo: 7 uur.
+- Daniel: 8  uur.
 
 ## Feedback
 > Just to be clear, I’m not a professional ‘taakverdeling maker’. This being said, I am open to any and all criticism.  
