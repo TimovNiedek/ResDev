@@ -11,7 +11,7 @@ public class Recipe {
 	private ArrayList<Ingredient> ingredients;
 	private String howto;
 	private int time;
-	private float price;
+	private double price;
 	private boolean favourite;
 	private String path;
 	public static class Ingredient{
@@ -27,7 +27,7 @@ public class Recipe {
 		}
 	};
 	
-	public Recipe(String naam, ArrayList<Ingredient> ingredienten, String bereiding, int tijd, float prijs, boolean favoriet, int idee, String path){
+	public Recipe(String naam, ArrayList<Ingredient> ingredienten, String bereiding, int tijd, double prijs, boolean favoriet, int idee, String path){
 		this.name = naam;
 		this.ID = idee;
 		this.ingredients = ingredienten;
@@ -61,7 +61,7 @@ public class Recipe {
 		return this.time;
 	}
 	
-	public float getPrice(){
+	public double getPrice(){
 		return this.price;
 	}
 	
@@ -69,4 +69,7 @@ public class Recipe {
 		return this.favourite;
 	}
 	
+	public String getPath(){
+		return this.path;
+	}
 }

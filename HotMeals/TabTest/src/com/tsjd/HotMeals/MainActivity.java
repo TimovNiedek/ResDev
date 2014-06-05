@@ -1,6 +1,7 @@
 package com.tsjd.HotMeals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import android.database.SQLException;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.example.tabtest.R;
+import com.tsjd.HotMeals.Recipe.Ingredient;
 
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
@@ -87,6 +89,19 @@ public class MainActivity extends FragmentActivity {
 	 	}
 	 	
 	 	
+    }
+    String naam = "tosti";
+    String bereiding = "gewoon tosti maken jonge";
+    String path = "whatever";
+    int tijd = 10;
+    int idee = 1;
+    double prijs = 0.3;
+    boolean favoriet = false;
+    
+    ArrayList<Ingredient> ingredientenlijst = new ArrayList<Ingredient>();
+    Recipe recipe = new Recipe(naam, ingredientenlijst, bereiding, tijd, prijs, favoriet, idee, path);
+    public Recipe getRecipe(){
+    	return recipe;
     }
     
     public DataBaseHelper getDatabaseHelper()
