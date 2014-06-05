@@ -40,19 +40,23 @@ public class Recipe {
 	
 	public String ingredientenToString(){
 		String result = "hoi";
-		/*
+		
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i <= this.ingredients.size(); i++){
+		for (int i = 0; i < this.ingredients.size(); i++){
 			sb.append(this.ingredients.get(i).quantity).append(this.ingredients.get(i).unit).append(this.ingredients.get(i).name);
 			sb.append("  ");
 		}
 		result = sb.toString();
-		 */
+		 
 		return result;
 	}
 	
 	public String getName(){
 		return this.name;
+	}
+	
+	public int getId(){
+		return this.ID;
 	}
 	
 	public String getBereiding(){

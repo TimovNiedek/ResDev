@@ -134,7 +134,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
     	//Open the database
         String myPath = dbPath;
-    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
  
     }
     
@@ -153,8 +153,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
 	}
     
-    public void changeFavourite(boolean favourite){
-    	
+    public void changeFavourite(boolean favourite, int idee){
+    	String Query;
+    	if (favourite){
+    		Query = "UPDATE HotMeals SET Favorite='0' WHERE id="+idee;
+    	}
+    	else{
+    		Query = "UPDATE HotMeals SET Favorite='1' WHERE id="+idee;
+    	}
+    	try{
+    	myDataBase.execSQL(Query);
+    	}catch (Exception e){
+    		throw e;
+    	}
     }
  
 	@Override
