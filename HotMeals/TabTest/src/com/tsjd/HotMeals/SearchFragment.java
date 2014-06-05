@@ -136,6 +136,10 @@ public class SearchFragment extends Fragment
 				goToResults(recipes);
 			}
 		});
+        
+        ingredientsView.setFocusable(true);
+        ingredientsView.requestFocus();
+        Log.d("IGV", "IGV has focus: " + ingredientsView.hasFocus());
     }
     
     //TODO: Vul de code in om naar de resultaten te gaan

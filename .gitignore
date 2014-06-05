@@ -2,3 +2,7 @@ HotMeals/TabTest/gen/com/example/tabtest/BuildConfig.java
 *.class
 *.cache
 *.ap_
+*.cache
+*.apk
+*.dex
+*.class
