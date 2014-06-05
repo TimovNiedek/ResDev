@@ -36,7 +36,7 @@ public class MainActivity extends FragmentActivity {
         
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
-                FragmentTab.class, null);
+                HomeTab.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab2").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
                 RecipeView.class, null);
