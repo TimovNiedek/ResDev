@@ -1,0 +1,63 @@
+package com.tsjd.HotMeals;
+
+import java.util.ArrayList;
+
+
+
+public class Recipe {
+
+	private int ID;
+	private String name;
+	private ArrayList<ingredient> ingredients;
+	private String howto;
+	private int time;
+	private float price;
+	private boolean favourite;
+	private class ingredient{
+		int quantity;
+		String unit;
+		String name;
+	};
+	
+	public Recipe(String naam, ArrayList<ingredient> ingredienten, String bereiding, int tijd, float prijs, boolean favoriet, int idee){
+		this.name = naam;
+		this.ID = idee;
+		this.ingredients = ingredienten;
+		this.howto = bereiding;
+		this.time = tijd;
+		this.price = prijs;
+		this.favourite = favoriet;
+	}
+	
+	public String ingredientenToString(){
+		String result;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i <= this.ingredients.size(); i++){
+			sb.append(this.ingredients.get(i).quantity).append(this.ingredients.get(i).unit).append(this.ingredients.get(i).name);
+			sb.append("  ");
+		}
+		result = sb.toString();
+		return result;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	
+	public String getBereiding(){
+		return this.howto;
+	}
+	
+	public int getTime(){
+		return this.time;
+	}
+	
+	public float getPrice(){
+		return this.price;
+	}
+	
+	public boolean favoriet(){
+		return this.favourite;
+	}
+	
+}
