@@ -38,8 +38,12 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
             public void onTabChanged(String tabID) {    
             	mTabHost.clearFocus(); 
-            }   
+            }
         });
+        
+        for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
+            mTabHost.getTabWidget().getChildAt(i).setBackgroundColor(-16711936);
+        }
     }
     
     private void createDatabase()
