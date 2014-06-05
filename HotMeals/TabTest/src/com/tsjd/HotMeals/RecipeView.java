@@ -31,7 +31,7 @@ public class RecipeView extends Fragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.recipe_view_fragment, container, false);
         
-        Bundle extras = getIntent().getExtras();
+        //Bundle extras = getIntent().getExtras();
         
         setRecipesHelper();
         
