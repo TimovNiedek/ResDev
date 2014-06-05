@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,13 @@ public class HomeTab extends Fragment {
     	
     	c.moveToFirst();
     	
-    	do
+    	Log.d("getRecipesFromCursor:HomeTab", "Row count: " + c.getCount());
+    	
+    	while (!c.isAfterLast())
     	{
     		recipes.add(getRecipeFromID(c.getInt(c.getColumnIndex("ID"))));
-    	} while (c.moveToNext());
+    		c.moveToNext();
+    	}
     	
     	return recipes;
     }
