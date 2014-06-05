@@ -10,4 +10,5 @@
     <string name="time_search">Search by cooking time:</string>
     <string name="search">Search</string>
 	<color name="greenish">#e7f7bb</color>
+	<color name="darkgreenish">#282d06</color>
 </resources>

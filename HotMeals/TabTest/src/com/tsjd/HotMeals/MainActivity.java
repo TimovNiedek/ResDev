@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import android.database.SQLException;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TextView;
 
 import com.example.tabtest.R;
 import com.tsjd.HotMeals.Recipe.Ingredient;
@@ -52,8 +54,12 @@ public class MainActivity extends FragmentActivity {
             }   
         });
         
-        //Update once to set tab colors
+        //Update once to set tab colors and set text color
         updateTabs(mTabHost);
+        for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
+        	TextView title = (TextView) mTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+        	title.setTextColor(Color.rgb(40, 45, 06));
+        }
     }
     
     /*
@@ -66,7 +72,7 @@ public class MainActivity extends FragmentActivity {
         	mTabHost.getTabWidget().getChildAt(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradient));
         }
     	mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradientactive));
-    	mTabHost.getTabWidget().setStripEnabled(false);
+    	//mTabHost.getTabWidget().setStripEnabled(false);
     }
         
     private void createDatabase()

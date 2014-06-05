@@ -70,7 +70,7 @@ public class RecipeView extends Fragment {
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){
-				recipesHelper.changeFavourite(recipe.favoriet());
+				recipesHelper.changeFavourite(recipe.favoriet(), recipe.getId());
 				recipe.toggleFavourite();
 				setFavouriteButtonText();
 			}
