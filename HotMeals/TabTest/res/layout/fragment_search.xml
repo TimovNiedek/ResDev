@@ -63,16 +63,6 @@
         android:layout_marginTop="24dp"
         android:text="@string/budget_search" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/timeTextView"
-        android:ems="10" >
-
-    </EditText>
-
     <MultiAutoCompleteTextView
         android:id="@+id/multiAutoCompleteTextView1"
         android:layout_width="wrap_content"

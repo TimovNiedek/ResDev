@@ -74,6 +74,8 @@ public class SearchFragment extends Fragment
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				ingredientsView.requestFocusFromTouch();
+				InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		        imm.showSoftInput(ingredientsView, InputMethodManager.SHOW_IMPLICIT);
 				return true;
 			}
 		});
@@ -140,9 +142,7 @@ public class SearchFragment extends Fragment
 		});
         
         ingredientsView.setFocusable(true);
-        ingredientsView.requestFocus();
-        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(ingredientsView, InputMethodManager.SHOW_IMPLICIT);
+        ingredientsView.clearFocus();
     }
     
     //TODO: Vul de code in om naar de resultaten te gaan
