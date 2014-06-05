@@ -2,6 +2,7 @@ package com.tsjd.HotMeals;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
@@ -139,7 +141,8 @@ public class SearchFragment extends Fragment
         
         ingredientsView.setFocusable(true);
         ingredientsView.requestFocus();
-        Log.d("IGV", "IGV has focus: " + ingredientsView.hasFocus());
+        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(ingredientsView, InputMethodManager.SHOW_IMPLICIT);
     }
     
     //TODO: Vul de code in om naar de resultaten te gaan
