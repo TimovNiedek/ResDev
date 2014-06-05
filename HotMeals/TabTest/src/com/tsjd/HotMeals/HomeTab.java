@@ -19,7 +19,7 @@ public class HomeTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_layout, container, false);
+        View v = inflater.inflate(R.layout.home_layout, container, false);
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText("Welcome to the Hotmeals App!");
         return v;
