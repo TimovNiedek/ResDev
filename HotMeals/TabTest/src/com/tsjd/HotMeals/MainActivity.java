@@ -38,10 +38,10 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
             public void onTabChanged(String tabID) {    
             	mTabHost.clearFocus();
-            	updateTabs(mTabHost);
+            	updateTabs(mTabHost); //Update to set active tab color
             }   
         });
-        updateTabs(mTabHost);
+        updateTabs(mTabHost); //Update once to set tab colors
     }
     
     private void updateTabs(FragmentTabHost mTabHost) {
