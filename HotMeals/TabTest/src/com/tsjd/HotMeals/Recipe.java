@@ -39,13 +39,15 @@ public class Recipe {
 	}
 	
 	public String ingredientenToString(){
-		String result;
+		String result = "hoi";
+		/*
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i <= this.ingredients.size(); i++){
 			sb.append(this.ingredients.get(i).quantity).append(this.ingredients.get(i).unit).append(this.ingredients.get(i).name);
 			sb.append("  ");
 		}
 		result = sb.toString();
+		 */
 		return result;
 	}
 	
@@ -71,5 +73,14 @@ public class Recipe {
 	
 	public String getPath(){
 		return this.path;
+	}
+	
+	public void toggleFavourite(){
+		if (this.favourite){
+			this.favourite = false;
+		}
+		else{
+			this.favourite = true;
+		}
 	}
 }
