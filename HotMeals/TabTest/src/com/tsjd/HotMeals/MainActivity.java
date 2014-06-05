@@ -42,7 +42,9 @@ public class MainActivity extends FragmentActivity {
         });
         
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
-            mTabHost.getTabWidget().getChildAt(i).setBackgroundColor(-16711936);
+            /*Aware that this method is deprecated. Still use it for the sole reason of that our test device is API level 10.
+        	The non-deprecated replacement method requires API level 16.*/
+        	mTabHost.getTabWidget().getChildAt(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradient));
         }
     }
     
