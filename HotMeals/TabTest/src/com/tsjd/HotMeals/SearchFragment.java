@@ -21,6 +21,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
+import com.tsjd.HotMeals.Recipe.Ingredient;
 
 public class SearchFragment extends Fragment 
 {
@@ -129,11 +130,18 @@ public class SearchFragment extends Fragment
 				if (ingredientsText.equals("")) {
 					cursor = search(ingredientsTextToArray(ingredientsText), budgetBar.getProgress(), timeBar.getProgress());
 				} else {
-					cursor = search(null, budgetBar.getProgress(), timeBar.getProgress());
+					cursor = search(ingredientsTextToArray(ingredientsText), budgetBar.getProgress(), timeBar.getProgress());
 				}
-				getRecipesFromCursor(cursor);
+				ArrayList<Recipe> recipes = getRecipesFromCursor(cursor);
+				goToResults(recipes);
 			}
 		});
+    }
+    
+    //TODO: Vul de code in om naar de resultaten te gaan
+    private void goToResults(ArrayList<Recipe> recipes)
+    {
+    	Log.d("goToResults", "Size of recipes is: " + recipes.size());
     }
     
     private ArrayList<String> ingredientsTextToArray(String text)
@@ -153,6 +161,8 @@ public class SearchFragment extends Fragment
 	    		ingredients.add(ingredientsString[i]);
 	    		Log.d("textToArray", ingredientsString[i]);
 	    	}
+    	} else if (text == ""){
+    		// Do nothing, no ingredients were entered
     	} else {
     		ingredients.add(text);
     	}
@@ -225,8 +235,9 @@ public class SearchFragment extends Fragment
     			+ "INNER JOIN Ingredienten I ON (H.ID = I.ID) "
     			+ "WHERE H.prijs <= \"" + maxPrice + "\"  AND H.tijd <= \"" + minutes + "\" ");
     	
-    	if (ingredients != null)
+    	if (ingredients.size() > 0)
     	{
+    		Log.d("Search", "Ingredients.size > 0");
     		query.append("AND I.NAAM IN (");
 	    	for (int i = 0; i < ingredients.size(); i++)
 	    	{
@@ -252,9 +263,66 @@ public class SearchFragment extends Fragment
     	return cursor;
     }
     
-    private void getRecipesFromCursor(Cursor c)
+    private ArrayList<Recipe> getRecipesFromCursor(Cursor c)
     {
-    	Log.d("getRecipesFromCursor", c.getCount() + "");
+    	Log.d("getRecipesFromCursor", "Amount of rows: " + c.getCount());
+    	ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    	c.moveToFirst();
+    	while (!c.isAfterLast()) {
+    		try {
+    			Log.d("getRecipesFromCursor", "Amount of columns: " + c.getColumnCount());
+    			recipes.add(getRecipeFromID(c.getInt(0)));
+    		} catch (Exception e) {
+    			throw new Error(e);
+    		}
+    		c.moveToNext();
+    	}
     	c.close();
+    	
+    	return recipes;
+    }
+    
+    private Recipe getRecipeFromID(int ID)
+    {
+    	/**
+    	 * SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals
+		 * WHERE ID = 1
+		 * 
+		 * SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = ...
+    	 */
+    	
+    	
+    	Cursor recipeCursor;
+		Cursor ingredientsCursor;
+		try {
+			String recipeQuery = "SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals WHERE ID = " + ID;
+			recipeCursor = recipesHelper.getReadableDatabase().rawQuery(recipeQuery, null);
+			
+			String ingredientsQuery = "SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = " + ID;
+			ingredientsCursor = recipesHelper.getReadableDatabase().rawQuery(ingredientsQuery, null);
+		} catch (Exception e1){
+			throw new Error(e1);
+		}
+    	
+    	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+    	
+    	ingredientsCursor.moveToFirst();
+		try {
+			do{
+				Recipe.Ingredient ingredient = new Recipe.Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
+																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Eenheid")), 
+																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Naam")));
+				ingredients.add(ingredient);
+			} while (ingredientsCursor.moveToNext());
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+		
+		ingredientsCursor.close();
+    	
+		recipeCursor.moveToFirst();
+    	boolean favorite = recipeCursor.getInt(4) == 1;
+    	Recipe recipe = new Recipe(recipeCursor.getString(0), ingredients, recipeCursor.getString(1), recipeCursor.getInt(2), recipeCursor.getFloat(3) / 100, favorite, recipeCursor.getInt(5), recipeCursor.getString(6));
+    	return recipe;
     }
 }

@@ -8,18 +8,26 @@ public class Recipe {
 
 	private int ID;
 	private String name;
-	private ArrayList<ingredient> ingredients;
+	private ArrayList<Ingredient> ingredients;
 	private String howto;
 	private int time;
 	private float price;
 	private boolean favourite;
-	private class ingredient{
-		int quantity;
-		String unit;
-		String name;
+	private String path;
+	public static class Ingredient{
+		public float quantity;
+		public String unit;
+		public String name;
+		
+		public Ingredient(float quantity, String unit, String name)
+		{
+			this.quantity = quantity;
+			this.unit = unit;
+			this.name = name;
+		}
 	};
 	
-	public Recipe(String naam, ArrayList<ingredient> ingredienten, String bereiding, int tijd, float prijs, boolean favoriet, int idee){
+	public Recipe(String naam, ArrayList<Ingredient> ingredienten, String bereiding, int tijd, float prijs, boolean favoriet, int idee, String path){
 		this.name = naam;
 		this.ID = idee;
 		this.ingredients = ingredienten;
@@ -27,6 +35,7 @@ public class Recipe {
 		this.time = tijd;
 		this.price = prijs;
 		this.favourite = favoriet;
+		this.path = path;
 	}
 	
 	public String ingredientenToString(){
