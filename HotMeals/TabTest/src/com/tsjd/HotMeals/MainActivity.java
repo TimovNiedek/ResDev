@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity {
         	mTabHost.getTabWidget().getChildAt(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradient));
         }
     	mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradientactive));
-    	//mTabHost.getTabWidget().setStripEnabled(false);
+    	mTabHost.getTabWidget().setStripEnabled(false);
     }
         
     private void createDatabase()

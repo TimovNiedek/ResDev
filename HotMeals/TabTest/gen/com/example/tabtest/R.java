@@ -1025,7 +1025,6 @@ containing a value of this type.
         public static final int image=0x7f050027;
         public static final int ingredientsTextView=0x7f050040;
         public static final int listMode=0x7f050001;
-        public static final int listView1=0x7f050047;
         public static final int list_item=0x7f050029;
         public static final int middle=0x7f050012;
         public static final int multiAutoCompleteTextView1=0x7f050041;
@@ -1035,6 +1034,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
+        public static final int recentsList=0x7f050047;
         public static final int rvtextViewHowto=0x7f05004a;
         public static final int rvtextViewIngredients=0x7f050049;
         public static final int rvtextViewName=0x7f050048;
