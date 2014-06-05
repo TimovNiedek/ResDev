@@ -11,6 +11,7 @@ import android.widget.TabHost.OnTabChangeListener;
 
 import com.example.tabtest.R;
 import com.tsjd.HotMeals.Recipe.Ingredient;
+import com.tsjd.HotMeals.RecipeView;
 
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
@@ -32,12 +33,13 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
         
         //Add three tabs
+        
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 FragmentTab.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab2").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
-                FragmentTab.class, null);
+                RecipeView.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab3").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
                 SearchFragment.class, null);

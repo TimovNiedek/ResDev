@@ -152,6 +152,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     	    super.close();
  
 	}
+    
+    public void changeFavourite(boolean favourite){
+    	
+    }
  
 	@Override
 	public void onCreate(SQLiteDatabase db) {

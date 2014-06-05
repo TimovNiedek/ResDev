@@ -1,8 +1,9 @@
 package com.tsjd.HotMeals;
 
-import android.app.Fragment;
+//import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -25,7 +26,15 @@ public class RecipeView extends Fragment {
 	
 	private void setRecipesHelper()
     {
+		
     	recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
+		
+    }
+    
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,9 +42,11 @@ public class RecipeView extends Fragment {
         View v = inflater.inflate(R.layout.recipe_view_fragment, container, false);
         
         recipe = ((MainActivity)this.getActivity()).getRecipe();
-        
+        try{
         setRecipesHelper();
-        
+        } catch (Exception e){
+        	throw e;
+        }
         initializeUI(v);
         return v;
     }
@@ -52,14 +63,16 @@ public class RecipeView extends Fragment {
 		recipeIngredients.setText(recipe.ingredientenToString());
 		recipeHowto.setText(recipe.getBereiding());
 		recipePrice.setText(recipe.getPrice()+"");
-		recipeTime.setText(recipe.getTime());
+		recipeTime.setText(recipe.getTime()+"");
 		setFavouriteButtonText();
 		
 		
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){
-				
+				recipesHelper.changeFavourite(recipe.favoriet());
+				recipe.toggleFavourite();
+				setFavouriteButtonText();
 			}
 		});
 	}
