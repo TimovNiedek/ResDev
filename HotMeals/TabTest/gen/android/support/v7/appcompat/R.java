@@ -244,6 +244,9 @@ public final class R {
 		public static final int abc_textfield_searchview_holo_light = 0x7f020054;
 		public static final int abc_textfield_searchview_right_holo_dark = 0x7f020055;
 		public static final int abc_textfield_searchview_right_holo_light = 0x7f020056;
+		public static final int custom_home = 0x7f020057;
+		public static final int ic_action_favorite = 0x7f020058;
+		public static final int ic_action_search = 0x7f020059;
 	}
 	public static final class id {
 		public static final int action_bar = 0x7f05001c;
@@ -334,7 +337,7 @@ public final class R {
 		public static final int abc_popup_menu_item_layout = 0x7f030014;
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f030015;
 		public static final int abc_search_view = 0x7f030016;
-		public static final int support_simple_spinner_dropdown_item = 0x7f03001a;
+		public static final int support_simple_spinner_dropdown_item = 0x7f03001b;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f0a0001;
