@@ -37,11 +37,22 @@ public class MainActivity extends FragmentActivity {
                 SearchFragment.class, null);
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
             public void onTabChanged(String tabID) {    
-            	mTabHost.clearFocus(); 
+            	mTabHost.clearFocus();
+            	updateTabs(mTabHost);
             }   
         });
+        updateTabs(mTabHost);
     }
     
+    private void updateTabs(FragmentTabHost mTabHost) {
+    	for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
+            /*Well aware that this method is deprecated. Still use it for the sole reason of that our test device is API level 10.
+        	The non-deprecated replacement method requires API level 16.*/
+        	mTabHost.getTabWidget().getChildAt(i).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradient));
+        }
+    	mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradientactive));
+    }
+        
     private void createDatabase()
     {
     	myDbHelper = new DataBaseHelper(this);
