@@ -23,9 +23,13 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         createDatabase();
         
+        //Create tabhost 
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+        
+        //Setup using standard layout
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
-                
+        
+        //Add three tabs
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 FragmentTab.class, null);
@@ -35,15 +39,22 @@ public class MainActivity extends FragmentActivity {
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab3").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
                 SearchFragment.class, null);
+        
+        //Set update listener, call updateTab on each update
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
             public void onTabChanged(String tabID) {    
             	mTabHost.clearFocus();
             	updateTabs(mTabHost); //Update to set active tab color
             }   
         });
-        updateTabs(mTabHost); //Update once to set tab colors
+        
+        //Update once to set tab colors
+        updateTabs(mTabHost);
     }
     
+    /*
+     * Updates background colors of tab views using gradient PNG's.
+     */
     private void updateTabs(FragmentTabHost mTabHost) {
     	for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             /*Well aware that this method is deprecated. Still use it for the sole reason of that our test device is API level 10.
