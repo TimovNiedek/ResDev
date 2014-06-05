@@ -14,6 +14,7 @@ import com.example.tabtest.R;
 public class RecipeView extends Fragment {
 
 	private DataBaseHelper recipesHelper;
+	private Recipe recipe;
 	private TextView recipeName;
 	private TextView recipeIngredients;
 	private TextView recipeHowto;
@@ -31,7 +32,7 @@ public class RecipeView extends Fragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.recipe_view_fragment, container, false);
         
-        //Bundle extras = getIntent().getExtras();
+        recipe = ((MainActivity)this.getActivity()).getRecipe();
         
         setRecipesHelper();
         
@@ -47,11 +48,28 @@ public class RecipeView extends Fragment {
 		recipeTime = (TextView) v.findViewById(R.id.rvtextViewTijd);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
 		
+		recipeName.setText(recipe.getName());
+		recipeIngredients.setText(recipe.ingredientenToString());
+		recipeHowto.setText(recipe.getBereiding());
+		recipePrice.setText(recipe.getPrice()+"");
+		recipeTime.setText(recipe.getTime());
+		setFavouriteButtonText();
+		
+		
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){
 				
 			}
 		});
+	}
+	
+	private void setFavouriteButtonText(){
+		if(recipe.favoriet()){
+			favButton.setText("Favourite this Recipe");
+		}
+		else{
+			favButton.setText("Unfavourite this Recipe");
+		}
 	}
 }
