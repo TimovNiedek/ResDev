@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/rvtextViewName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/rvtextViewIngredients"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvtextViewName"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/rvtextViewHowto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvtextViewIngredients"
+                android:layout_marginTop="24dp" />
+            
+            <TextView
+                android:id="@+id/rvtextViewTijd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvtextViewHowto"
+                android:layout_marginTop="24dp" />
+            
+            <TextView
+                android:id="@+id/rvtextViewPrijs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvtextViewTijd"
+                android:layout_marginTop="24dp" />
+
+            <Button
+                android:id="@+id/favouriteButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rvtextViewPrijs"
+                android:layout_marginBottom="20dp"
+                 />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
