@@ -60,6 +60,7 @@ public class MainActivity extends FragmentActivity {
         	TextView title = (TextView) mTabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
         	title.setTextColor(Color.rgb(40, 45, 06));
         }
+        mTabHost.getTabWidget().setStripEnabled(true);
     }
     
     /*
