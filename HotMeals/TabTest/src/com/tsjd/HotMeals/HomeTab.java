@@ -37,6 +37,7 @@ public class HomeTab extends Fragment {
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText("Welcome to the Hotmeals App!");
         
+<<<<<<< HEAD
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
         
         Cursor cursor = getRecentRecipes();
@@ -45,6 +46,11 @@ public class HomeTab extends Fragment {
         
         recipesReadableDatabase.close();
         
+=======
+        Cursor cursor = getRecentRecipes();
+        recentRecipes = getRecipesFromCursor(cursor);
+        
+>>>>>>> 3ba1414ca7824ee1ac261805c1c101dd64bda2f6
         ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
         
         return v;
