@@ -104,10 +104,10 @@ public class RecipeView extends BaseTabFragment {
 	
 	private void setFavouriteButtonText(){
 		if(recipe.favoriet()){
-			favButton.setText("Favourite this Recipe");
+			favButton.setText("Unfavourite this Recipe");
 		}
 		else{
-			favButton.setText("Unfavourite this Recipe");
+			favButton.setText("Favourite this Recipe");
 		}
 	}
 }

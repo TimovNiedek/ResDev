@@ -122,7 +122,7 @@ public class MainActivity extends FragmentActivity {
     }
     String naam = "tosti";
     String bereiding = "gewoon tosti maken jonge";
-    String path = "ic_action_search";
+    String path = "spaghetti";
     int tijd = 10;
     int idee = 1;
     double prijs = 0.3;

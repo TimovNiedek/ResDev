@@ -156,10 +156,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void changeFavourite(boolean favourite, int idee){
     	String Query;
     	if (favourite){
-    		Query = "UPDATE HotMeals SET Favorite='0' WHERE id="+idee;
+    		Query = "UPDATE HotMeals SET Favorite='0' WHERE ID="+idee;
     	}
     	else{
-    		Query = "UPDATE HotMeals SET Favorite='1' WHERE id="+idee;
+    		Query = "UPDATE HotMeals SET Favorite='1' WHERE ID="+idee;
     	}
     	try{
     		myDataBase.execSQL(Query);
