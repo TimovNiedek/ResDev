@@ -3,6 +3,7 @@ package com.tsjd.HotMeals;
 import com.example.tabtest.R;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,9 @@ public class RecipeContainerFragment extends BaseTabFragment
 
      private void initView() {
          Log.e("test", "tab 1 init view");
-         replaceFragment(new RecipeView(), false);
+         Fragment recipeView = new RecipeView();
+         Bundle arguments = this.getArguments();
+         recipeView.setArguments(arguments);
+         replaceFragment(recipeView, false);
      }
 }

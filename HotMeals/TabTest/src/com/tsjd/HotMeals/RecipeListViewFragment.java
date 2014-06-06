@@ -2,11 +2,16 @@ package com.tsjd.HotMeals;
 
 import java.util.ArrayList;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.example.tabtest.R;
@@ -54,6 +59,17 @@ public class RecipeListViewFragment extends BaseTabFragment {
 		
 		RecipeListViewAdapter adapter = new RecipeListViewAdapter(getActivity(), recipeArrayListToArray(recipes));
 		listview.setAdapter(adapter);
+		listview.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Recipe recipe = (Recipe)listview.getItemAtPosition(position);
+				Bundle arguments = new Bundle();
+				arguments.putParcelable("recipe", recipe);
+				Fragment recipeFragment = new RecipeContainerFragment();
+				recipeFragment.setArguments(arguments);
+				((BaseTabFragment)getParentFragment()).addFragmentWithTransition(recipeFragment, true);
+				
+	        }
+		});
     }
 	
 	private Recipe[] recipeArrayListToArray(ArrayList<Recipe> recipes)

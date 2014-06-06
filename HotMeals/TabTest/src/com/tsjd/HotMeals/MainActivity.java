@@ -15,16 +15,23 @@ import com.example.tabtest.R;
 
 public class MainActivity extends FragmentActivity {
    
+	public static String PACKAGE_NAME;
+	
 	private FragmentTabHost mTabHost;
+	private ArrayList<Recipe> favorites = new ArrayList<Recipe>();
+	private Bundle favoritesBundle = new Bundle();
+	public boolean updateFavorites = false;
 	
     DataBaseHelper myDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        
         setContentView(R.layout.activity_main);
+        
+        // Set the static package name
+        PACKAGE_NAME = getApplicationContext().getPackageName();
+        
         createDatabase();
         
         //Create tabhost 
@@ -33,14 +40,19 @@ public class MainActivity extends FragmentActivity {
         //Setup using standard layout
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabs);
         
+        // Initialize FavoritesHelper
+        final FavoritesHelper favoritesHelper = new FavoritesHelper(myDbHelper);
+        favorites = favoritesHelper.getFavorites();
+        favoritesBundle.putParcelableArrayList("recipes", favorites);
+        
         //Add three tabs
         
         mTabHost.addTab(
                 mTabHost.newTabSpec("Home").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
-                RecipeContainerFragment.class, null);
+                HomeTab.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("My Recipes").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
-                HomeContainerFragment.class, null);
+                RecipeListViewContainerFragment.class, favoritesBundle);
         mTabHost.addTab(
                 mTabHost.newTabSpec("Search").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
                 SearchContainerFragment.class, null);
@@ -48,6 +60,13 @@ public class MainActivity extends FragmentActivity {
         //Set update listener, call updateTab on each update
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
             public void onTabChanged(String tabID) {    
+            	// Update de favorieten
+            	if(updateFavorites)
+            	{
+            		favorites = favoritesHelper.getFavorites();
+            		favoritesBundle.clear();
+            		favoritesBundle.putParcelableArrayList("recipes", favorites);
+            	}
             	mTabHost.clearFocus();
             	updateTabs(mTabHost); //Update to set active tab color
             }   
@@ -119,6 +138,8 @@ public class MainActivity extends FragmentActivity {
 	 	
 	 	
     }
+    
+    //TODO: Remove
     String naam = "tosti";
     String bereiding = "gewoon tosti maken jonge";
     String path = "spaghetti";
@@ -129,9 +150,6 @@ public class MainActivity extends FragmentActivity {
     
     ArrayList<Ingredient> ingredientenlijst = new ArrayList<Ingredient>();
     Recipe recipe = new Recipe(naam, ingredientenlijst, bereiding, tijd, prijs, favoriet, idee, path);
-    public Recipe getRecipe(){
-    	return recipe;
-    }
     
     public DataBaseHelper getDatabaseHelper()
     {

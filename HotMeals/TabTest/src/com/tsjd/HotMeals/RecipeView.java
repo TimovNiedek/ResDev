@@ -1,6 +1,7 @@
 package com.tsjd.HotMeals;
 
 //import android.app.Fragment;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,13 +45,18 @@ public class RecipeView extends BaseTabFragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.recipe_view_fragment, container, false);
         
-        recipe = ((MainActivity)this.getActivity()).getRecipe();
+        Bundle arguments = new Bundle();
+        arguments = this.getArguments();
+        recipe = arguments.getParcelable("recipe");
+        if (recipe == null) throw new Error("Recipe could not be found in bundle");
+        
         try{
         setRecipesHelper();
         } catch (Exception e){
         	throw e;
         }
         initializeUI(v);
+		
         return v;
     }
 	
@@ -74,24 +80,28 @@ public class RecipeView extends BaseTabFragment {
 		//String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
 		String uri = "@drawable/"+ recipe.getPath();
 
-		int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
+		try {
+			int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
 
-		Drawable res = getResources().getDrawable(imageResource);
-		receptImage.setImageDrawable(res);		
+			Drawable res = getResources().getDrawable(imageResource);
+			receptImage.setImageDrawable(res);
+		} catch (NotFoundException e) {
+			Log.d("Path not found", "The path " + recipe.getPath() + " doesn't return a value");
+		}		
 		
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());
 		recipeHowto.setText(recipe.getBereiding());
-		recipePrice.setText("Price per serving: "+ recipe.getPrice());
+		recipePrice.setText("Price per serving: "+ Recipe.doubleToCurrency(recipe.getPrice()));
 		recipeTime.setText("Time: "+ recipe.getTime()+" Minuten");
 		setFavouriteButtonText();
-		
+		/*
 		backView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View V){
 				
 			}
-		});
+		});*/
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){

@@ -164,31 +164,15 @@ public class SearchFragment extends BaseTabFragment
     	Log.d("goToResults", "Size of recipes is: " + recipes.size());
     	
     	recipesReadableDatabase.close();
-    	
-    	//try {
-			Fragment newFragment = new RecipeListViewContainerFragment();
-			
-			Bundle recipeBundle = new Bundle();
-			recipeBundle.putParcelableArrayList("recipes", recipes);
-			newFragment.setArguments(recipeBundle);
-			
-			Log.d("goToResults", "BaseTabFragment: " + getParentFragment().getTag());
-			//try {
-				((BaseTabFragment)getParentFragment()).addFragmentWithTransition(newFragment, true);
-			//} catch (Exception e) {
-			//	throw new Error(e);
-			//}
-			
-			/*
-			FragmentManager fm = getFragmentManager();
-			FragmentTransaction ft = fm.beginTransaction();
-			ft.add(android.R.id.content, newFragment);
-			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(newFragment).commit();*/
-		//} catch (Exception e) {
-		//	throw new Error(e);
-		//}
-    	
-    	
+    
+		Fragment newFragment = new RecipeListViewContainerFragment();
+		
+		Bundle recipeBundle = new Bundle();
+		recipeBundle.putParcelableArrayList("recipes", recipes);
+		newFragment.setArguments(recipeBundle);
+		
+		Log.d("goToResults", "BaseTabFragment: " + getParentFragment().getTag());
+		((BaseTabFragment)getParentFragment()).addFragmentWithTransition(newFragment, true);
     }
     
     private ArrayList<String> ingredientsTextToArray(String text)
