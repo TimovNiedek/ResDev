@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.tabtest.R;
 import com.tsjd.HotMeals.Recipe.Ingredient;
 
-public class HomeTab extends Fragment {
+public class HomeTab extends BaseTabFragment {
 
 	private DataBaseHelper recipesHelper;
 	private SQLiteDatabase recipesReadableDatabase;

@@ -28,7 +28,7 @@ import android.widget.TextView;
 import com.example.tabtest.R;
 import com.tsjd.HotMeals.Recipe.Ingredient;
 
-public class SearchFragment extends Fragment 
+public class SearchFragment extends BaseTabFragment 
 {
 	private MultiAutoCompleteTextView ingredientsView;
 	private SeekBar budgetBar;

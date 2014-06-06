@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.tabtest.R;
 
-public class RecipeView extends Fragment {
+public class RecipeView extends BaseTabFragment {
 
 	private DataBaseHelper recipesHelper;
 	private Recipe recipe;

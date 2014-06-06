@@ -16,7 +16,7 @@ public class BaseTabFragment extends Fragment
 		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(android.R.id.content, fragment);
-		ft.setCustomAnimations(R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
+		//ft.setCustomAnimations(R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
         getChildFragmentManager().executePendingTransactions();
     }
 

@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity {
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
         
         //Setup using standard layout
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.tabs);
         
         //Add three tabs
         
