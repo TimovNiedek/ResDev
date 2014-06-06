@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity {
                 mTabHost.newTabSpec("Home").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 HomeTab.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("My Recipes").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
+                mTabHost.newTabSpec("Favorites").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
                 RecipeListViewContainerFragment.class, favoritesBundle);
         mTabHost.addTab(
                 mTabHost.newTabSpec("Search").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
