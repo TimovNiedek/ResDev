@@ -25,6 +25,7 @@ public class RecipeView extends BaseTabFragment {
 	private TextView recipePrice;
 	private ImageView receptImage;
 	private Button favButton;
+	private View backView;
 	
 	
 	private void setRecipesHelper()
@@ -62,9 +63,10 @@ public class RecipeView extends BaseTabFragment {
 		recipeTime = (TextView) v.findViewById(R.id.rvtextViewTijd);
 		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
+		backView = (View) v.findViewById(R.id.rvView);
 		
 		
-		
+		backView.setClickable(true);
 		
 		//String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
 		String uri = "@drawable/"+ recipe.getPath();
@@ -83,7 +85,12 @@ public class RecipeView extends BaseTabFragment {
 		recipeTime.setText(recipe.getTime()+"");
 		setFavouriteButtonText();
 		
-		
+		backView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View V){
+				
+			}
+		});
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){
