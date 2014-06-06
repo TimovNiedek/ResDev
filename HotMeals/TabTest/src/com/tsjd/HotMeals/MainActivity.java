@@ -94,7 +94,7 @@ public class MainActivity extends FragmentActivity {
     }
     String naam = "tosti";
     String bereiding = "gewoon tosti maken jonge";
-    String path = "whatever";
+    String path = "custom_home";
     int tijd = 10;
     int idee = 1;
     double prijs = 0.3;
