@@ -1,30 +1,40 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/rvtextViewName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:layout_below="@+id/rvtextViewName">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
+            
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/rvtextViewName"
-                android:layout_width="fill_parent"
+            <ImageView 
+                android:id="@+id/rvimageViewMain"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp" />
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"
+                
+                />
 
             <TextView
                 android:id="@+id/rvtextViewIngredients"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rvtextViewName"
+                android:layout_below="@+id/rvimageViewMain"
                 android:layout_marginTop="24dp" />
 
             <TextView
@@ -59,4 +69,4 @@
         </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.tsjd.HotMeals;
 
 //import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
@@ -21,6 +23,7 @@ public class RecipeView extends Fragment {
 	private TextView recipeHowto;
 	private TextView recipeTime;
 	private TextView recipePrice;
+	private ImageView receptImage;
 	private Button favButton;
 	
 	
@@ -57,7 +60,15 @@ public class RecipeView extends Fragment {
 		recipeHowto = (TextView) v.findViewById(R.id.rvtextViewHowto);
 		recipePrice = (TextView) v.findViewById(R.id.rvtextViewPrijs);
 		recipeTime = (TextView) v.findViewById(R.id.rvtextViewTijd);
+		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
+		
+		
+		
+		
+		String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
+		Drawable d = Drawable.createFromPath(pathName);
+		receptImage.setImageDrawable(d);
 		
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());
