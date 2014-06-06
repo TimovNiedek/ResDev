@@ -1,94 +1,100 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="64dp" 
-	android:background = "@color/greenish">
-
-	<LinearLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background = "@color/greenish">
+	<ScrollView
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical"
-	    android:scrollbars="vertical" >
+	    android:layout_height="match_parent"
+	    android:layout_marginTop="64dp" 
+		>
 	
-	    <TextView
-	        android:id="@+id/ingredientsTextView"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="80dp"
-	        android:text="@string/ingredients_search" />
-
-	    <MultiAutoCompleteTextView
-	        android:id="@+id/multiAutoCompleteTextView1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
-	        android:ems="10"
-	        android:hint="@string/ingredients" />
-
-	    <TextView
-	        android:id="@+id/textView2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/budget_search" />
-	    
-	    <SeekBar
-	        android:id="@+id/seekBar1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
-	        android:layout_marginTop="10dp"
-	        android:max="1000" 
-	        android:progress = "1000" />
-
-	    <TextView
-	        android:id="@+id/budgetTextView"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="10dp"
-	        android:text="€10.00" />
-
-	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/time_search" />
-	    
-	    <SeekBar
-	        android:id="@+id/timeSeekBar"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
-	        android:layout_marginTop="10dp"
-	        android:max="120"
-	        android:progress = "120" />
-
-	    <TextView
-	        android:id="@+id/timeTextView"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
-	        android:layout_marginTop="10dp"
-	        android:text="2h 0m" />
-	    
-	    <Button
-	        android:id="@+id/searchButton"
-	        style="?android:attr/buttonStyleSmall"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/search" />
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:scrollbars="vertical" >
+		
+		    <TextView
+		        android:id="@+id/ingredientsTextView"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginTop="80dp"
+		        android:text="@string/ingredients_search" />
 	
-	</LinearLayout>
-</ScrollView>
+		    <MultiAutoCompleteTextView
+		        android:id="@+id/multiAutoCompleteTextView1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginRight="16dp"
+		        android:ems="10"
+		        android:hint="@string/ingredients" />
+	
+		    <TextView
+		        android:id="@+id/textView2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginTop="20dp"
+		        android:text="@string/budget_search" />
+		    
+		    <SeekBar
+		        android:id="@+id/seekBar1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginRight="16dp"
+		        android:layout_marginTop="10dp"
+		        android:max="1000" 
+		        android:progress = "1000" />
+	
+		    <TextView
+		        android:id="@+id/budgetTextView"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginTop="10dp"
+		        android:text="€10.00" />
+	
+		    <TextView
+		        android:id="@+id/textView1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginTop="20dp"
+		        android:text="@string/time_search" />
+		    
+		    <SeekBar
+		        android:id="@+id/timeSeekBar"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginRight="16dp"
+		        android:layout_marginTop="10dp"
+		        android:max="120"
+		        android:progress = "120" />
+	
+		    <TextView
+		        android:id="@+id/timeTextView"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginRight="16dp"
+		        android:layout_marginTop="10dp"
+		        android:text="2h 0m" />
+		    
+		    <Button
+		        android:id="@+id/searchButton"
+		        style="?android:attr/buttonStyleSmall"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"
+		        android:layout_marginRight="16dp"
+		        android:layout_marginTop="20dp"
+		        android:text="@string/search" />
+		
+		</LinearLayout>
+	</ScrollView>
+</FrameLayout>
