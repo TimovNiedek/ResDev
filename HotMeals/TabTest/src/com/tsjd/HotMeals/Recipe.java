@@ -34,7 +34,7 @@ public class Recipe implements Parcelable {
 		
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < this.ingredients.size(); i++){
-			sb.append(this.ingredients.get(i).quantity).append(this.ingredients.get(i).unit).append(this.ingredients.get(i).name);
+			sb.append(this.ingredients.get(i).quantity + " ").append(this.ingredients.get(i).unit + " ").append(this.ingredients.get(i).name);
 			sb.append("  ");
 		}
 		result = sb.toString();
