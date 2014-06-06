@@ -24,7 +24,7 @@
             <ImageView 
                 android:id="@+id/rvimageViewMain"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 
                 android:visibility="visible"

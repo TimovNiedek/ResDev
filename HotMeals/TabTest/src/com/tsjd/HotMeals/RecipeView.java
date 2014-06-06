@@ -3,10 +3,13 @@ package com.tsjd.HotMeals;
 //import android.app.Fragment;
 //import android.graphics.Bitmap;
 //import android.graphics.BitmapFactory;
+import java.io.File;
+
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -70,15 +73,20 @@ public class RecipeView extends Fragment {
 		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
 		
-		String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
+		//String pathName = "/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
 		
 		
 		
 		
 		
 		try{
-		image = Drawable.createFromPath(pathName);
+		File file = new File("/TabTest/res/drawable-hdpi/custom_home.png");
+		Uri uri = Uri.fromFile(file);
+		String path = uri.getPath();
+		Drawable image = Drawable.createFromPath(path);
 		receptImage.setImageDrawable(image);
+		receptImage.setBackgroundColor(-65536);
+		receptImage.setVisibility(0);
 		}catch (Exception e){
 			throw e;
 		}
