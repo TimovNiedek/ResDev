@@ -3,11 +3,12 @@ package com.tsjd.HotMeals;
 //import android.app.Fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,9 +31,7 @@ public class RecipeView extends BaseTabFragment {
 	
 	private void setRecipesHelper()
     {
-		
     	recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
-		
     }
     
 	
@@ -64,6 +63,10 @@ public class RecipeView extends BaseTabFragment {
 		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
 		backView = (View) v.findViewById(R.id.rvView);
+		MarginLayoutParams margins = (MarginLayoutParams) backView.getLayoutParams();
+		margins.topMargin = ((MainActivity) this.getActivity()).getTabBarHeight();
+		Log.d("Tab bar height", "" + ((MainActivity) this.getActivity()).getTabBarHeight());
+		backView.setLayoutParams(margins);
 		
 		
 		backView.setClickable(true);

@@ -16,8 +16,9 @@ import com.tsjd.HotMeals.Recipe.Ingredient;
 import com.tsjd.HotMeals.RecipeView;
 
 public class MainActivity extends FragmentActivity {
-    private FragmentTabHost mTabHost;
-    
+   
+	private FragmentTabHost mTabHost;
+	
     DataBaseHelper myDbHelper;
 
     @Override
@@ -37,13 +38,13 @@ public class MainActivity extends FragmentActivity {
         //Add three tabs
         
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
+                mTabHost.newTabSpec("Home").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 RecipeContainerFragment.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab2").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
+                mTabHost.newTabSpec("My Recipes").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
                 HomeContainerFragment.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("tab3").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
+                mTabHost.newTabSpec("Search").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
                 SearchContainerFragment.class, null);
         
         //Set update listener, call updateTab on each update
@@ -63,21 +64,21 @@ public class MainActivity extends FragmentActivity {
         mTabHost.getTabWidget().setStripEnabled(true);
     }
     
-    /*@Override
+    @Override
     public void onBackPressed() {
         boolean isPopFragment = false;
         String currentTabTag = mTabHost.getCurrentTabTag();
         if (currentTabTag.equals("Home")) {
-            isPopFragment = ((BaseContainerFragment)getSupportFragmentManager().findFragmentByTag("Home")).popFragment();
+            isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("Home")).popFragment();
         } else if (currentTabTag.equals("My Recipes")) {
-            isPopFragment = ((BaseContainerFragment)getSupportFragmentManager().findFragmentByTag("My Recipes")).popFragment();
+            isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("My Recipes")).popFragment();
         } else if (currentTabTag.equals("Search")) {
-            isPopFragment = ((BaseContainerFragment)getSupportFragmentManager().findFragmentByTag("Search")).popFragment();
+            isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("Search")).popFragment();
         } 
         if (!isPopFragment) {
             finish();
         }
-    }*/
+    }
     
     /*
      * Updates background colors of tab views using gradient PNG's.
@@ -91,7 +92,11 @@ public class MainActivity extends FragmentActivity {
     	mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradientactive));
     	mTabHost.getTabWidget().setStripEnabled(false);
     }
-        
+    
+    public int getTabBarHeight() {
+    	return mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height;
+    }
+    
     private void createDatabase()
     {
     	myDbHelper = new DataBaseHelper(this);

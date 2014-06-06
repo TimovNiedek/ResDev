@@ -1,17 +1,17 @@
 
-	<RelativeLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:orientation="vertical"
-	    android:background="@color/greenish">
+	    android:layout_marginTop="0dp"
+	    android:background="@color/greenish"
+	    android:orientation="vertical" >
 	    
 	    <TextView
 	        android:id="@+id/rvView"
 	        android:layout_width="fill_parent"
 	        android:layout_height="48dp"
 	        android:layout_marginTop="48dp"
-	        android:background="@drawable/tabgradient"
+	        android:background="@drawable/backgradient"
 	        android:clickable="true"
 	        android:gravity="left|center_vertical"
 	        android:paddingLeft="16dp"
