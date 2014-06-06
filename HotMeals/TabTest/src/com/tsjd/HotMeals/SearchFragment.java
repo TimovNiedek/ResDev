@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -36,6 +39,7 @@ public class SearchFragment extends Fragment
 	//private TextView searchText;
 	
 	private DataBaseHelper recipesHelper;
+	private SQLiteDatabase recipesReadableDatabase;
 	private ArrayList<String> ingredients;
 	
 	@Override
@@ -51,6 +55,8 @@ public class SearchFragment extends Fragment
         ingredients = new ArrayList<String>();
         
         setRecipesHelper();
+        recipesReadableDatabase = recipesHelper.getReadableDatabase();
+        
         setIngredients();
         initializeUI(v);
         
@@ -137,6 +143,7 @@ public class SearchFragment extends Fragment
 					cursor = search(ingredientsTextToArray(ingredientsText), budgetBar.getProgress(), timeBar.getProgress());
 				}
 				ArrayList<Recipe> recipes = getRecipesFromCursor(cursor);
+				cursor.close();
 				goToResults(recipes);
 			}
 		});
@@ -149,29 +156,50 @@ public class SearchFragment extends Fragment
     private void goToResults(ArrayList<Recipe> recipes)
     {
     	Log.d("goToResults", "Size of recipes is: " + recipes.size());
+    	
+    	recipesReadableDatabase.close();
+    	
+    	try {
+			Fragment newFragment = new RecipeFragment();
+			
+			FragmentManager fm = getFragmentManager();
+			FragmentTransaction ft = fm.beginTransaction();
+			ft.add(android.R.id.content, newFragment);    	
+			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(newFragment).commit();
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+    	
+    	          
     }
     
     private ArrayList<String> ingredientsTextToArray(String text)
     {
     	ArrayList<String> ingredients = new ArrayList<String>();
-    	String replacedText = text.replaceAll(", ", "-");
-    	Log.d("textToArray", "text is: " + replacedText);
-    	if (replacedText.contains("-")) 
-    	{	
-    		Log.d("textToArray", "text.contains(\"-\") is true");
-    		
-			String[] ingredientsString;
-			ingredientsString  = replacedText.split("-");
-			Log.d("textToArray", "length: " + ingredientsString.length);
-    		for (int i = 0; i < ingredientsString.length; i++)
-	    	{	
-	    		ingredients.add(ingredientsString[i]);
-	    		Log.d("textToArray", ingredientsString[i]);
-	    	}
-    	} else if (text == ""){
-    		// Do nothing, no ingredients were entered
+    	
+    	Log.d("textToArray", "Length of text is: " + text.length());
+    	
+    	if (text.length() == 0){
+    		Log.d("textToArray", "No ingredients were entered");
     	} else {
-    		ingredients.add(text);
+	    	
+	    	String replacedText = text.replaceAll(", ", "-");
+	    	Log.d("textToArray", "text is: " + replacedText);
+	    	if (replacedText.contains("-")) 
+	    	{	
+	    		Log.d("textToArray", "text.contains(\"-\") is true");
+	    		
+				String[] ingredientsString;
+				ingredientsString  = replacedText.split("-");
+				Log.d("textToArray", "length: " + ingredientsString.length);
+	    		for (int i = 0; i < ingredientsString.length; i++)
+		    	{	
+		    		ingredients.add(ingredientsString[i]);
+		    		Log.d("textToArray", ingredientsString[i]);
+		    	}
+	    	} else {
+	    		ingredients.add(text);
+	    	}
     	}
     	return ingredients;
     }
@@ -206,7 +234,7 @@ public class SearchFragment extends Fragment
     private Cursor getIngredientMatches() {
     	try{
     		
-    		Cursor cursor = recipesHelper.getReadableDatabase().query(true, "Ingredienten", new String[]{"Naam"}, null, null, null, null, null, null);
+    		Cursor cursor = recipesReadableDatabase.query(true, "Ingredienten", new String[]{"Naam"}, null, null, null, null, null, null);
     		if (cursor == null) {
                 return null;
             } else if (!cursor.moveToFirst()) {
@@ -245,6 +273,7 @@ public class SearchFragment extends Fragment
     	if (ingredients.size() > 0)
     	{
     		Log.d("Search", "Ingredients.size > 0");
+    		Log.d("Search", "First ingredient name is: " + ingredients.get(0));
     		query.append("AND I.NAAM IN (");
 	    	for (int i = 0; i < ingredients.size(); i++)
 	    	{
@@ -262,7 +291,7 @@ public class SearchFragment extends Fragment
     	
     	Cursor cursor;
 		try {
-			cursor = recipesHelper.getReadableDatabase().rawQuery(query.toString(), null);
+			cursor = recipesReadableDatabase.rawQuery(query.toString(), null);
 		} catch (SQLException e) {
 			throw new Error(e);
 		}
@@ -303,10 +332,10 @@ public class SearchFragment extends Fragment
 		Cursor ingredientsCursor;
 		try {
 			String recipeQuery = "SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals WHERE ID = " + ID;
-			recipeCursor = recipesHelper.getReadableDatabase().rawQuery(recipeQuery, null);
+			recipeCursor = recipesReadableDatabase.rawQuery(recipeQuery, null);
 			
 			String ingredientsQuery = "SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = " + ID;
-			ingredientsCursor = recipesHelper.getReadableDatabase().rawQuery(ingredientsQuery, null);
+			ingredientsCursor = recipesReadableDatabase.rawQuery(ingredientsQuery, null);
 		} catch (Exception e1){
 			throw new Error(e1);
 		}
@@ -315,12 +344,13 @@ public class SearchFragment extends Fragment
     	
     	ingredientsCursor.moveToFirst();
 		try {
-			do{
+			while (!ingredientsCursor.isAfterLast()) {
 				Recipe.Ingredient ingredient = new Recipe.Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Eenheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Naam")));
 				ingredients.add(ingredient);
-			} while (ingredientsCursor.moveToNext());
+				ingredientsCursor.moveToNext();
+			}
 		} catch (Exception e) {
 			throw new Error(e);
 		}
