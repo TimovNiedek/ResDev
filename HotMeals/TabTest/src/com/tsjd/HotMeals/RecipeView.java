@@ -51,11 +51,12 @@ public class RecipeView extends BaseTabFragment {
         if (recipe == null) throw new Error("Recipe could not be found in bundle");
         
         try{
-        setRecipesHelper();
+        	setRecipesHelper();
         } catch (Exception e){
         	throw e;
         }
         initializeUI(v);
+        recipesHelper.updateTimeViewed((int)(System.currentTimeMillis()/60000), recipe.getId());
 		
         return v;
     }
@@ -73,8 +74,6 @@ public class RecipeView extends BaseTabFragment {
 		margins.topMargin = ((MainActivity) this.getActivity()).getTabBarHeight();
 		Log.d("Tab bar height", "" + ((MainActivity) this.getActivity()).getTabBarHeight());
 		backView.setLayoutParams(margins);
-		
-		
 		backView.setClickable(true);
 		
 		//String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
@@ -95,13 +94,13 @@ public class RecipeView extends BaseTabFragment {
 		recipePrice.setText("Price per serving: "+ Recipe.doubleToCurrency(recipe.getPrice()));
 		recipeTime.setText("Time: "+ recipe.getTime()+" Minuten");
 		setFavouriteButtonText();
-		/*
+		
 		backView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View V){
 				
 			}
-		});*/
+		});
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){

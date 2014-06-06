@@ -34,6 +34,10 @@ public class RecipeContainerFragment extends BaseTabFragment
          Fragment recipeView = new RecipeView();
          Bundle arguments = this.getArguments();
          recipeView.setArguments(arguments);
-         replaceFragment(recipeView, false);
+         try {
+			replaceFragment(recipeView, false);
+		} catch (Exception e) {
+			throw e;
+		}
      }
 }

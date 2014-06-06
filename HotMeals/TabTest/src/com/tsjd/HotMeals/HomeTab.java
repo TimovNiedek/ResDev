@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.tabtest.R;
 
@@ -46,12 +49,40 @@ public class HomeTab extends BaseTabFragment {
         
         Cursor cursor = getRecentRecipes();
         recentRecipes = getRecipesFromCursor(cursor);
+        Log.d("getRecentRecipes", "Size of recent recipes: "+ recentRecipes.size());
         cursor.close();
         
         recipesReadableDatabase.close();
-        ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
+        final ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
+        
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        
+        RecipeListViewAdapter adapter = new RecipeListViewAdapter(getActivity(), recipeArrayListToArray(recentRecipes));
+		recentsList.setAdapter(adapter);
+		
+		recentsList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Recipe recipe = (Recipe)recentsList.getItemAtPosition(position);
+				goToRecipe(recipe);
+	        }
+		});
         
         return v;
+    }
+    
+    private void goToRecipe(Recipe recipe)
+    {
+    	Bundle arguments = new Bundle();
+		arguments.putParcelable("recipe", recipe);
+		Fragment recipeFragment = new RecipeContainerFragment();
+		recipeFragment.setArguments(arguments);
+		Log.d("NullTests", "recipeFragment: " + (recipeFragment == null));
+		Log.d("NullTests", "parentFragment: " + ((BaseTabFragment)getParentFragment() == null));
+		try {
+			((BaseTabFragment)getParentFragment()).addFragmentWithTransition(recipeFragment, true);
+		} catch (Exception e) {
+			throw e;
+		}
     }
     
     private ArrayList<Recipe> getRecipesFromCursor(Cursor c)
@@ -77,6 +108,23 @@ public class HomeTab extends BaseTabFragment {
     	return recipes;
     }
     
+    private Recipe[] recipeArrayListToArray(ArrayList<Recipe> recipes)
+	{
+		
+		Recipe[] recipesArray;
+		try {
+			recipesArray = new Recipe[recipes.size()];
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+		for (int i = 0; i < recipes.size(); i++)
+		{
+			recipesArray[i] = recipes.get(i);
+		}
+		
+		return recipesArray;
+	}
+    
     private Cursor getRecentRecipes()
     {
     	/**
@@ -87,12 +135,14 @@ public class HomeTab extends BaseTabFragment {
     	
     	Cursor cursor;
     	
-    	String query = "SELECT ID FROM HotMeals WHERE TimeViewed > 0 ORDER BY TimeViewed DESC";;
+    	String query = "SELECT ID FROM HotMeals WHERE TimeViewed > 0 ORDER BY TimeViewed DESC";
 		try {
 			cursor = recipesReadableDatabase.rawQuery(query, null);
 		} catch (Exception e) {
 			throw new Error(e);
 		}
+		
+		Log.d("getRecentRecipes", "Amt of rows: " + cursor.getCount());
 		    	
     	return cursor;
     }
