@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
@@ -75,12 +76,18 @@ public class MainActivity extends FragmentActivity {
     	mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradientactive));
     	mTabHost.getTabWidget().setStripEnabled(false);
     }
+    
+    @Override
+    public void onBackPressed() {
+       //Testing testing, one two, one two
+       //onResume();
+    	super.onBackPressed();
+    }
         
     private void createDatabase()
     {
     	myDbHelper = new DataBaseHelper(this);
         try {
-        	 
         	myDbHelper.createDataBase();
  
 	 	} catch (IOException ioe) {
