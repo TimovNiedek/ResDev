@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity {
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
         
         //Setup using standard layout
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         
         //Add three tabs
         
@@ -62,6 +62,22 @@ public class MainActivity extends FragmentActivity {
         }
         mTabHost.getTabWidget().setStripEnabled(true);
     }
+    
+    /*@Override
+    public void onBackPressed() {
+        boolean isPopFragment = false;
+        String currentTabTag = mTabHost.getCurrentTabTag();
+        if (currentTabTag.equals("Home")) {
+            isPopFragment = ((BaseContainerFragment)getSupportFragmentManager().findFragmentByTag("Home")).popFragment();
+        } else if (currentTabTag.equals("My Recipes")) {
+            isPopFragment = ((BaseContainerFragment)getSupportFragmentManager().findFragmentByTag("My Recipes")).popFragment();
+        } else if (currentTabTag.equals("Search")) {
+            isPopFragment = ((BaseContainerFragment)getSupportFragmentManager().findFragmentByTag("Search")).popFragment();
+        } 
+        if (!isPopFragment) {
+            finish();
+        }
+    }*/
     
     /*
      * Updates background colors of tab views using gradient PNG's.
