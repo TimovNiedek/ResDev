@@ -2,7 +2,6 @@ package com.tsjd.HotMeals;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import android.database.SQLException;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
-
 import com.example.tabtest.R;
 import com.tsjd.HotMeals.Recipe.Ingredient;
 import com.tsjd.HotMeals.RecipeView;
@@ -20,12 +18,16 @@ public class MainActivity extends FragmentActivity {
     
     DataBaseHelper myDbHelper;
 
+    /*
+     * Standard init stuff: views, tabs, database
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        
+        //Standard android stuff
+    	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        //Database init
         createDatabase();
         
         //Create tabhost 
@@ -35,7 +37,6 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabFrameLayout);
         
         //Add three tabs
-        
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 HomeTab.class, null);
@@ -75,12 +76,24 @@ public class MainActivity extends FragmentActivity {
     	mTabHost.getTabWidget().getChildAt(mTabHost.getCurrentTab()).setBackgroundDrawable(getResources().getDrawable(R.drawable.tabgradientactive));
     	mTabHost.getTabWidget().setStripEnabled(false);
     }
-        
+    
+    /*
+     * Override of back button functionality so as to make for a better UX
+     */
+    @Override
+    public void onBackPressed() {
+       //Testing testing, one two, one two
+       //onResume();
+    	super.onBackPressed();
+    }
+    
+    /*
+     * Setup database
+     */
     private void createDatabase()
     {
     	myDbHelper = new DataBaseHelper(this);
         try {
-        	 
         	myDbHelper.createDataBase();
  
 	 	} catch (IOException ioe) {
@@ -99,14 +112,17 @@ public class MainActivity extends FragmentActivity {
 	 	
 	 	
     }
-    String naam = "tosti";
-    String bereiding = "gewoon tosti maken jonge";
+    
+    /*
+     * Hardcoded Recipe
+     */
+    String naam = "Tosti Valse Nicht";
+    String bereiding = "De Tosti Valse Nicht is lekker vals en lekker nichterig. Op een natte zomeravond is de Tosti Valse Nicht precies wat u nodig heeft. Let wel, deze tosti kan bijwerkingen hebben. Bescherm hierdoor altijd uw achterwerk zodra u deze tosti gaat bereiden.";
     String path = "custom_home";
     int tijd = 10;
     int idee = 1;
     double prijs = 0.3;
     boolean favoriet = false;
-    
     ArrayList<Ingredient> ingredientenlijst = new ArrayList<Ingredient>();
     Recipe recipe = new Recipe(naam, ingredientenlijst, bereiding, tijd, prijs, favoriet, idee, path);
     public Recipe getRecipe(){
