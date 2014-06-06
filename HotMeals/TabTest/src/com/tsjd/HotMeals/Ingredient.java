@@ -32,7 +32,6 @@ public class Ingredient implements Parcelable{
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
 		dest.writeFloat(quantity);
 		dest.writeString(unit);
 		dest.writeString(name);

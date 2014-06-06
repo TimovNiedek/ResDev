@@ -74,7 +74,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     	SQLiteDatabase checkDB = null;
  
     	try{
-    		String myPath = dbPath + DB_NAME;
+    		String myPath = dbPath;
     		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     		Log.d("DataBaseHelper", "Database exists");
  
@@ -161,6 +161,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     	else{
     		Query = "UPDATE HotMeals SET Favorite='1' WHERE ID="+idee;
     	}
+    	try{
+    		myDataBase.execSQL(Query);
+    	}catch (Exception e){
+    		throw e;
+    	}
+    }
+    
+    public void updateTimeViewed(int time, int ID){
+    	String Query;
+    	Query = "UPDATE HotMeals SET TimeViewed=" + time + " WHERE ID=" + ID;
+    	Log.d("UpdateTime", "Time is: " + time + " for ID " + ID);
     	try{
     		myDataBase.execSQL(Query);
     	}catch (Exception e){
