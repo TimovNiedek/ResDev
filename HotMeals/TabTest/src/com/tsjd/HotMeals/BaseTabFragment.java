@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import com.example.tabtest.R;
 
 public class BaseTabFragment extends Fragment 
 {
@@ -13,11 +14,30 @@ public class BaseTabFragment extends Fragment
             transaction.addToBackStack(null);
         }
         
-		FragmentManager fm = getFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-		ft.add(android.R.id.content, fragment);
-		//ft.setCustomAnimations(R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
-        getChildFragmentManager().executePendingTransactions();
+        try{
+        	transaction.replace(R.id.container_framelayout, fragment);
+            transaction.commit();
+	        getChildFragmentManager().executePendingTransactions();
+        } catch (Exception e) {
+        	throw new Error(e);
+        }
+    }
+	
+	public void addFragmentWithTransition(Fragment fragment, boolean addToBackStack) {
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+        
+        try{
+        	
+        	transaction.add(R.id.container_framelayout, fragment);
+        	transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
+        	
+	        getChildFragmentManager().executePendingTransactions();
+        } catch (Exception e) {
+        	throw new Error(e);
+        }
     }
 
     public boolean popFragment() {

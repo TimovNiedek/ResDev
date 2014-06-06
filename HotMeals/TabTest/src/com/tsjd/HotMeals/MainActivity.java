@@ -38,13 +38,13 @@ public class MainActivity extends FragmentActivity {
         
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
-                RecipeView.class, null);
+                RecipeContainerFragment.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab2").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
-                HomeTab.class, null);
+                HomeContainerFragment.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab3").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
-                SearchFragment.class, null);
+                SearchContainerFragment.class, null);
         
         //Set update listener, call updateTab on each update
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    

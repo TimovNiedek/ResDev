@@ -160,17 +160,20 @@ public class SearchFragment extends BaseTabFragment
     	recipesReadableDatabase.close();
     	
     	try {
-			Fragment newFragment = new RecipeView();
+			Fragment newFragment = new RecipeContainerFragment();
+			Log.d("goToResults", "BaseTabFragment: " + getParentFragment().getTag());
+			((BaseTabFragment)getParentFragment()).addFragmentWithTransition(newFragment, true);
 			
+			/*
 			FragmentManager fm = getFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
 			ft.add(android.R.id.content, newFragment);
-			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(newFragment).commit();
+			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(newFragment).commit();*/
 		} catch (Exception e) {
 			throw new Error(e);
 		}
     	
-    	          
+    	
     }
     
     private ArrayList<String> ingredientsTextToArray(String text)
