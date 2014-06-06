@@ -160,11 +160,11 @@ public class SearchFragment extends Fragment
     	recipesReadableDatabase.close();
     	
     	try {
-			Fragment newFragment = new RecipeFragment();
+			Fragment newFragment = new RecipeView();
 			
 			FragmentManager fm = getFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
-			ft.add(android.R.id.content, newFragment);    	
+			ft.add(android.R.id.content, newFragment);
 			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(newFragment).commit();
 		} catch (Exception e) {
 			throw new Error(e);
@@ -360,6 +360,7 @@ public class SearchFragment extends Fragment
 		recipeCursor.moveToFirst();
     	boolean favorite = recipeCursor.getInt(4) == 1;
     	Recipe recipe = new Recipe(recipeCursor.getString(0), ingredients, recipeCursor.getString(1), recipeCursor.getInt(2), recipeCursor.getFloat(3) / 100, favorite, recipeCursor.getInt(5), recipeCursor.getString(6));
+    	recipeCursor.close();
     	return recipe;
     }
 }

@@ -37,7 +37,6 @@ public class HomeTab extends Fragment {
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText("Welcome to the Hotmeals App!");
         
-<<<<<<< HEAD
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
         
         Cursor cursor = getRecentRecipes();
@@ -46,11 +45,6 @@ public class HomeTab extends Fragment {
         
         recipesReadableDatabase.close();
         
-=======
-        Cursor cursor = getRecentRecipes();
-        recentRecipes = getRecipesFromCursor(cursor);
-        
->>>>>>> 3ba1414ca7824ee1ac261805c1c101dd64bda2f6
         ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
         
         return v;
@@ -66,7 +60,11 @@ public class HomeTab extends Fragment {
     	
     	while (!c.isAfterLast())
     	{
-    		recipes.add(getRecipeFromID(c.getInt(c.getColumnIndex("ID"))));
+    		try{
+    			recipes.add(getRecipeFromID(c.getInt(c.getColumnIndex("ID"))));
+    		} catch (Exception e) {
+    			throw new Error(e);
+    		}
     		c.moveToNext();
     	}
     	
@@ -88,7 +86,6 @@ public class HomeTab extends Fragment {
     	String query = "SELECT ID FROM HotMeals WHERE TimeViewed > 0 ORDER BY TimeViewed DESC";;
 		try {
 			cursor = recipesReadableDatabase.rawQuery(query, null);
-			recipesReadableDatabase.close();
 		} catch (Exception e) {
 			throw new Error(e);
 		}
@@ -104,7 +101,6 @@ public class HomeTab extends Fragment {
 		 * 
 		 * SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = ...
     	 */
-    	
     	
     	Cursor recipeCursor;
 		Cursor ingredientsCursor;
