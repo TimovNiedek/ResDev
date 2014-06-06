@@ -38,10 +38,10 @@ public class MainActivity extends FragmentActivity {
         
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab1").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
-                HomeTab.class, null);
+                RecipeView.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab2").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
-                RecipeView.class, null);
+                HomeTab.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("tab3").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
                 SearchFragment.class, null);
@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity {
     }
     String naam = "tosti";
     String bereiding = "gewoon tosti maken jonge";
-    String path = "custom_home";
+    String path = "ic_action_search";
     int tijd = 10;
     int idee = 1;
     double prijs = 0.3;

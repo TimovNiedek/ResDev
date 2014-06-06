@@ -66,9 +66,15 @@ public class RecipeView extends Fragment {
 		
 		
 		
-		String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
-		Drawable d = Drawable.createFromPath(pathName);
-		receptImage.setImageDrawable(d);
+		//String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
+		String uri = "@drawable/"+ recipe.getPath();
+
+		int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
+
+		
+		Drawable res = getResources().getDrawable(imageResource);
+		receptImage.setImageDrawable(res);
+		
 		
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());
