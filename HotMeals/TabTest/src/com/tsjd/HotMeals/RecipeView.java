@@ -76,16 +76,14 @@ public class RecipeView extends BaseTabFragment {
 
 		int imageResource = getResources().getIdentifier(uri, null, getActivity().getPackageName());
 
-		
 		Drawable res = getResources().getDrawable(imageResource);
-		receptImage.setImageDrawable(res);
-		
+		receptImage.setImageDrawable(res);		
 		
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());
 		recipeHowto.setText(recipe.getBereiding());
 		recipePrice.setText("Price per serving: "+ recipe.getPrice());
-		recipeTime.setText("Tijd: "+ recipe.getTime()+" Minuten");
+		recipeTime.setText("Time: "+ recipe.getTime()+" Minuten");
 		setFavouriteButtonText();
 		
 		backView.setOnClickListener(new OnClickListener() {

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,8 +35,14 @@ public class HomeTab extends BaseTabFragment {
         recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
         
         TextView tv = (TextView) v.findViewById(R.id.text);
-        tv.setText("Welcome to the Hotmeals App!");
-        
+        tv.setText("Welcome to the Hotmeals App!" + '\n'
+        		+ "You can search for recipes by pressing the search tab," + '\n'
+        		+ "or view recipes that you've marked as a favorite by pressing the favorites tab!" + '\n'
+        		+ "Or if you like, browse the recipes you've recently viewed down below.");
+        MarginLayoutParams margins = (MarginLayoutParams) tv.getLayoutParams();
+		margins.topMargin = ((MainActivity) this.getActivity()).getTabBarHeight();
+		Log.d("Tab bar height", "" + ((MainActivity) this.getActivity()).getTabBarHeight());
+		tv.setLayoutParams(margins);
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
         
         Cursor cursor = getRecentRecipes();

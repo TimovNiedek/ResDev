@@ -1003,7 +1003,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050054;
+        public static final int action_settings=0x7f050055;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1019,7 +1019,7 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
-        public static final int favouriteButton=0x7f050053;
+        public static final int favouriteButton=0x7f050054;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
@@ -1037,12 +1037,13 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
         public static final int realtabcontent=0x7f05003c;
-        public static final int recentsList=0x7f05004b;
-        public static final int rvView=0x7f05004c;
-        public static final int rvimageViewMain=0x7f05004e;
-        public static final int rvtextViewHowto=0x7f050050;
-        public static final int rvtextViewIngredients=0x7f05004f;
-        public static final int rvtextViewName=0x7f05004d;
+        public static final int recentsList=0x7f05004c;
+        public static final int recentstext=0x7f05004b;
+        public static final int rvView=0x7f05004d;
+        public static final int rvimageViewMain=0x7f05004f;
+        public static final int rvtextViewHowto=0x7f050053;
+        public static final int rvtextViewIngredients=0x7f050050;
+        public static final int rvtextViewName=0x7f05004e;
         public static final int rvtextViewPrijs=0x7f050052;
         public static final int rvtextViewTijd=0x7f050051;
         public static final int searchButton=0x7f05004a;
