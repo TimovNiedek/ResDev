@@ -162,7 +162,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     		Query = "UPDATE HotMeals SET Favorite='1' WHERE id="+idee;
     	}
     	try{
-    	myDataBase.execSQL(Query);
+    		myDataBase.execSQL(Query);
     	}catch (Exception e){
     		throw e;
     	}
