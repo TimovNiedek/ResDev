@@ -9,6 +9,6 @@
     <string name="budget_search">Search by maximum price:</string>
     <string name="time_search">Search by cooking time:</string>
     <string name="search">Search</string>
-	<color name="greenish">#eef6d8</color>
+	<color name="greenish">#f7fbec</color>
 	<color name="darkgreenish">#282d06</color>
 </resources>
