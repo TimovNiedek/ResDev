@@ -84,8 +84,8 @@ public class RecipeView extends BaseTabFragment {
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());
 		recipeHowto.setText(recipe.getBereiding());
-		recipePrice.setText(recipe.getPrice()+"");
-		recipeTime.setText(recipe.getTime()+"");
+		recipePrice.setText("Price per serving: "+ recipe.getPrice());
+		recipeTime.setText("Tijd: "+ recipe.getTime()+" Minuten");
 		setFavouriteButtonText();
 		
 		backView.setOnClickListener(new OnClickListener() {
