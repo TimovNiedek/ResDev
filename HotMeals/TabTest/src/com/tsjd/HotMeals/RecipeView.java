@@ -1,6 +1,8 @@
 package com.tsjd.HotMeals;
 
 //import android.app.Fragment;
+//import android.graphics.Bitmap;
+//import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ public class RecipeView extends Fragment {
 	private TextView recipePrice;
 	private ImageView receptImage;
 	private Button favButton;
+	private Drawable image;
 	
 	
 	private void setRecipesHelper()
@@ -58,17 +61,29 @@ public class RecipeView extends Fragment {
 		recipeName = (TextView) v.findViewById(R.id.rvtextViewName);
 		recipeIngredients = (TextView) v.findViewById(R.id.rvtextViewIngredients);
 		recipeHowto = (TextView) v.findViewById(R.id.rvtextViewHowto);
+		try{
 		recipePrice = (TextView) v.findViewById(R.id.rvtextViewPrijs);
+		}catch(Exception e){
+			throw e;
+		}
 		recipeTime = (TextView) v.findViewById(R.id.rvtextViewTijd);
 		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
 		
-		
-		
-		
 		String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
-		Drawable d = Drawable.createFromPath(pathName);
-		receptImage.setImageDrawable(d);
+		
+		
+		
+		
+		
+		try{
+		image = Drawable.createFromPath(pathName);
+		receptImage.setImageDrawable(image);
+		}catch (Exception e){
+			throw e;
+		}
+		
+		receptImage.setBackgroundColor(0);
 		
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());

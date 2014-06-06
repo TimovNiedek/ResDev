@@ -35,10 +35,10 @@ public class HomeTab extends Fragment {
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText("Welcome to the Hotmeals App!");
         
-        //Cursor cursor = getRecentRecipes();
-        //recentRecipes = getRecipesFromCursor(cursor);
+        Cursor cursor = getRecentRecipes();
+        recentRecipes = getRecipesFromCursor(cursor);
         
-        //ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
+        ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
         
         return v;
     }
