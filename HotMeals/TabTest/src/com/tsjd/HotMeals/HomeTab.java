@@ -44,7 +44,6 @@ public class HomeTab extends Fragment {
         cursor.close();
         
         recipesReadableDatabase.close();
-        
         ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
         
         return v;
