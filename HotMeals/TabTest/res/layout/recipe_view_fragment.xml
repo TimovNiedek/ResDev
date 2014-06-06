@@ -58,22 +58,12 @@
 	                android:paddingLeft="16dp"
 	                android:paddingRight="16dp"
 	                android:text="Ingredient" />
-	
-	            <TextView
-	                android:id="@+id/rvtextViewHowto"
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/rvtextViewIngredients"
-	                android:layout_marginTop="24dp"
-	                android:paddingLeft="16dp"
-	                android:paddingRight="16dp"
-	                android:text="How to" />
 	            
 	            <TextView
 	                android:id="@+id/rvtextViewTijd"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/rvtextViewHowto"
+	                android:layout_below="@+id/rvtextViewIngredients"
 	                android:layout_marginTop="24dp"
 	                android:paddingLeft="16dp"
 	                android:paddingRight="16dp"
@@ -89,12 +79,24 @@
 	                android:paddingRight="16dp"
 	                android:text="Price" />
 	
+	            <TextView
+	                android:id="@+id/rvtextViewHowto"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_below="@+id/rvtextViewPrijs"
+	                android:layout_marginTop="24dp"
+	                android:paddingLeft="16dp"
+	                android:paddingRight="16dp"
+	                android:text="How to" />
+	            
+	            
+	
 	            <Button
 	                android:id="@+id/favouriteButton"
 	                style="?android:attr/buttonStyleSmall"
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/rvtextViewPrijs"
+	                android:layout_below="@+id/rvtextViewHowto"
 	                android:layout_marginBottom="16dp"
 	                android:layout_marginLeft="16dp"
 	                android:layout_marginRight="16dp" />
