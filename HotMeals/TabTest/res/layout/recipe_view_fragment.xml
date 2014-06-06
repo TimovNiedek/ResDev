@@ -26,7 +26,7 @@
         android:paddingRight="16dp"
         android:text="Title"
         android:textSize="24sp"
-        android:clickable="false" />
+        android:clickable="true" />
 
     <ScrollView
         android:layout_width="fill_parent"
