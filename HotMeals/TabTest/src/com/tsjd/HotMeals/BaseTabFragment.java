@@ -30,13 +30,8 @@ public class BaseTabFragment extends Fragment
         }
         
         try{
-        	
         	transaction.replace(R.id.container_framelayout, fragment);
-        	transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
-        	
-        	
-        	//transaction.replace(R.id.container_framelayout, fragment);
-            //transaction.commit();
+        	transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
         	
 	        getChildFragmentManager().executePendingTransactions();
         } catch (Exception e) {
