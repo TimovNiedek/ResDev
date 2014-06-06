@@ -26,7 +26,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
-import com.tsjd.HotMeals.Recipe.Ingredient;
 
 public class SearchFragment extends BaseTabFragment 
 {
@@ -56,6 +55,13 @@ public class SearchFragment extends BaseTabFragment
         
         setRecipesHelper();
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
+        
+        
+        try {
+			Ingredient ingredient = new Ingredient(1.0f, "ml", "jizz");
+		} catch (Exception e) {
+			throw new Error(e);
+		}
         
         setIngredients();
         initializeUI(v);
@@ -97,7 +103,7 @@ public class SearchFragment extends BaseTabFragment
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				budgetText.setText("€" + (double)Math.round((double)(progress)) / 100 );
+				budgetText.setText("€" + Recipe.doubleToCurrency((double)(progress)/100));
 			}
 		});
         
@@ -159,19 +165,28 @@ public class SearchFragment extends BaseTabFragment
     	
     	recipesReadableDatabase.close();
     	
-    	try {
-			Fragment newFragment = new RecipeContainerFragment();
+    	//try {
+			Fragment newFragment = new RecipeListViewContainerFragment();
+			
+			Bundle recipeBundle = new Bundle();
+			recipeBundle.putParcelableArrayList("recipes", recipes);
+			newFragment.setArguments(recipeBundle);
+			
 			Log.d("goToResults", "BaseTabFragment: " + getParentFragment().getTag());
-			((BaseTabFragment)getParentFragment()).addFragmentWithTransition(newFragment, true);
+			//try {
+				((BaseTabFragment)getParentFragment()).addFragmentWithTransition(newFragment, true);
+			//} catch (Exception e) {
+			//	throw new Error(e);
+			//}
 			
 			/*
 			FragmentManager fm = getFragmentManager();
 			FragmentTransaction ft = fm.beginTransaction();
 			ft.add(android.R.id.content, newFragment);
 			ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(newFragment).commit();*/
-		} catch (Exception e) {
-			throw new Error(e);
-		}
+		//} catch (Exception e) {
+		//	throw new Error(e);
+		//}
     	
     	
     }
@@ -348,7 +363,7 @@ public class SearchFragment extends BaseTabFragment
     	ingredientsCursor.moveToFirst();
 		try {
 			while (!ingredientsCursor.isAfterLast()) {
-				Recipe.Ingredient ingredient = new Recipe.Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
+				Ingredient ingredient = new Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Eenheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Naam")));
 				ingredients.add(ingredient);

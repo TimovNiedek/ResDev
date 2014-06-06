@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
-import com.tsjd.HotMeals.Recipe.Ingredient;
 
 public class HomeTab extends BaseTabFragment {
 
@@ -124,7 +123,7 @@ public class HomeTab extends BaseTabFragment {
     	ingredientsCursor.moveToFirst();
 		try {
 			while (!ingredientsCursor.isAfterLast()) { 
-				Recipe.Ingredient ingredient = new Recipe.Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
+				Ingredient ingredient = new Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Eenheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Naam")));
 				ingredients.add(ingredient);

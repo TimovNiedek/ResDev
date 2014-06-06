@@ -12,8 +12,6 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
 import com.example.tabtest.R;
-import com.tsjd.HotMeals.Recipe.Ingredient;
-import com.tsjd.HotMeals.RecipeView;
 
 public class MainActivity extends FragmentActivity {
    
@@ -83,7 +81,8 @@ public class MainActivity extends FragmentActivity {
     /*
      * Updates background colors of tab views using gradient PNG's.
      */
-    private void updateTabs(FragmentTabHost mTabHost) {
+    @SuppressWarnings("deprecation")
+	private void updateTabs(FragmentTabHost mTabHost) {
     	for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             /*Well aware that this method is deprecated. Still use it for the sole reason of that our test device is API level 10.
         	The non-deprecated replacement method requires API level 16.*/
