@@ -148,13 +148,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
     	    if(myDataBase != null)
     		    myDataBase.close();
+    	    
+    	    throw new Error("shouldn't be closed");
  
-    	    super.close();
+    	    //super.close();
  
 	}
     
     public void changeFavourite(boolean favourite, int idee){
     	String Query;
+    	
     	if (favourite){
     		Query = "UPDATE HotMeals SET Favorite='0' WHERE ID="+idee;
     	}

@@ -139,17 +139,7 @@ public class MainActivity extends FragmentActivity {
 	 	
     }
     
-    //TODO: Remove
-    String naam = "tosti";
-    String bereiding = "gewoon tosti maken jonge";
-    String path = "spaghetti";
-    int tijd = 10;
-    int idee = 1;
-    double prijs = 0.3;
-    boolean favoriet = false;
     
-    ArrayList<Ingredient> ingredientenlijst = new ArrayList<Ingredient>();
-    Recipe recipe = new Recipe(naam, ingredientenlijst, bereiding, tijd, prijs, favoriet, idee, path);
     
     public DataBaseHelper getDatabaseHelper()
     {

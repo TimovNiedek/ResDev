@@ -105,6 +105,7 @@ public class RecipeView extends BaseTabFragment {
 			@Override
 			public void onClick(View v){
 				recipesHelper.changeFavourite(recipe.favoriet(), recipe.getId());
+				
 				recipe.toggleFavourite();
 				setFavouriteButtonText();
 			}
@@ -112,6 +113,7 @@ public class RecipeView extends BaseTabFragment {
 	}
 	
 	private void setFavouriteButtonText(){
+		((MainActivity)this.getActivity()).updateFavorites = true;
 		if(recipe.favoriet()){
 			favButton.setText("Unfavourite this Recipe");
 		}

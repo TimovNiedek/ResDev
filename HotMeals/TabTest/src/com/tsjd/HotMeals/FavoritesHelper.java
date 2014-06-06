@@ -26,7 +26,7 @@ public class FavoritesHelper {
 		String query = "SELECT ID FROM HotMeals WHERE Favorite = 1";
 		Cursor cursor;
 		try {
-			cursor = dBase.rawQuery(query, null);
+			cursor = favoritesHelper.getWritableDatabase().rawQuery(query, null);
 		} catch (Exception e1) {
 			throw e1;
 		}
@@ -65,10 +65,10 @@ public class FavoritesHelper {
 		Cursor ingredientsCursor;
 		try {
 			String recipeQuery = "SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals WHERE ID = " + ID;
-			recipeCursor = dBase.rawQuery(recipeQuery, null);
+			recipeCursor = favoritesHelper.getReadableDatabase().rawQuery(recipeQuery, null);
 			
 			String ingredientsQuery = "SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = " + ID;
-			ingredientsCursor = dBase.rawQuery(ingredientsQuery, null);
+			ingredientsCursor = favoritesHelper.getReadableDatabase().rawQuery(ingredientsQuery, null);
 		} catch (Exception e1){
 			throw new Error(e1);
 		}
