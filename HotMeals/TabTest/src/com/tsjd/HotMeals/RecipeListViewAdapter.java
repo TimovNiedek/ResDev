@@ -43,7 +43,7 @@ public class RecipeListViewAdapter extends ArrayAdapter<Recipe> {
 			Drawable res = context.getResources().getDrawable(imageResource);
 			imageView.setImageDrawable(res);
 		} catch (Exception e) {
-			int imageResource = context.getResources().getIdentifier("@drawable/ic_launcher", null, context.getPackageName());
+			int imageResource = context.getResources().getIdentifier("@drawable/non_existing_photo", null, context.getPackageName());
 			Drawable res = context.getResources().getDrawable(imageResource);
 			imageView.setImageDrawable(res);
 		}
@@ -51,7 +51,7 @@ public class RecipeListViewAdapter extends ArrayAdapter<Recipe> {
 		textView.setText(values[position].getName());		
 
 		TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
-		secondLine.setText(values[position].getTime() + " min|€" + Recipe.doubleToCurrency(values[position].getPrice()));
+		secondLine.setText(values[position].getTime() + " min|ï¿½" + Recipe.doubleToCurrency(values[position].getPrice()));
 		
 		return rowView;
 	}
