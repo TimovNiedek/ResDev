@@ -91,7 +91,7 @@ public class SearchFragment extends Fragment
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				budgetText.setText("$" + (double)(progress)/100 + "0");
+				budgetText.setText("€" + (double)Math.round((double)(progress)) / 100 );
 			}
 		});
         
@@ -125,7 +125,7 @@ public class SearchFragment extends Fragment
 				String ingredientsText = ingredientsView.getText().toString();
 				//if (ingredientsText.equals("")) ingredientsText = "niet ingevuld";
 				String budget = budgetText.getText().toString();
-				if (budget.equals("$0.00")) budget = "niet ingevuld";
+				if (budget.equals("€0.00")) budget = "niet ingevuld";
 				String time = timeText.getText().toString();
 				if (time.equals("0h 0m")) time = "niet ingevuld";
 				

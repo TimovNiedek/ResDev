@@ -15,7 +15,7 @@
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="75dp"
 	        android:text="@string/ingredients_search" />
-	    
+
 	    <MultiAutoCompleteTextView
 	        android:id="@+id/multiAutoCompleteTextView1"
 	        android:layout_width="match_parent"
@@ -24,9 +24,9 @@
 	        android:layout_marginRight="16dp"
 	        android:ems="10"
 	        android:hint="@string/ingredients" />
-	    
+
 	    <TextView
-	        android:id="@+id/budgetTextView"
+	        android:id="@+id/textView2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="16dp"
@@ -42,15 +42,22 @@
 	        android:layout_marginTop="10dp"
 	        android:max="1000" 
 	        android:progress = "1000" />
-	    
+
 	    <TextView
-	        android:id="@+id/timeTextView"
+	        android:id="@+id/budgetTextView"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="16dp"
-	        android:layout_marginRight="16dp"
+	        android:layout_marginTop="10dp"
+	        android:text="€10.00" />
+
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="20dp"
-	        android:text="2h 0m" />
+	        android:text="@string/time_search" />
 	    
 	    <SeekBar
 	        android:id="@+id/timeSeekBar"
@@ -61,6 +68,15 @@
 	        android:layout_marginTop="10dp"
 	        android:max="120"
 	        android:progress = "120" />
+
+	    <TextView
+	        android:id="@+id/timeTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginRight="16dp"
+	        android:layout_marginTop="10dp"
+	        android:text="2h 0m" />
 	    
 	    <Button
 	        android:id="@+id/searchButton"
