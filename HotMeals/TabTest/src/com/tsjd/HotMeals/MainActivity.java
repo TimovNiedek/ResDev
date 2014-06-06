@@ -49,7 +49,7 @@ public class MainActivity extends FragmentActivity {
         
         mTabHost.addTab(
                 mTabHost.newTabSpec("Home").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
-                HomeTab.class, null);
+                HomeContainerFragment.class, null);
         mTabHost.addTab(
                 mTabHost.newTabSpec("Favorites").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
                 RecipeListViewContainerFragment.class, favoritesBundle);

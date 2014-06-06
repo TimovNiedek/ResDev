@@ -172,7 +172,7 @@ public class SearchFragment extends BaseTabFragment
 		newFragment.setArguments(recipeBundle);
 		
 		Log.d("goToResults", "BaseTabFragment: " + getParentFragment().getTag());
-		((BaseTabFragment)getParentFragment()).addFragmentWithTransition(newFragment, true);
+		((BaseTabFragment)getParentFragment()).replaceFragment(newFragment, true);
     }
     
     private ArrayList<String> ingredientsTextToArray(String text)

@@ -66,7 +66,7 @@ public class RecipeListViewFragment extends BaseTabFragment {
 				arguments.putParcelable("recipe", recipe);
 				Fragment recipeFragment = new RecipeContainerFragment();
 				recipeFragment.setArguments(arguments);
-				((BaseTabFragment)getParentFragment()).addFragmentWithTransition(recipeFragment, true);
+				((BaseTabFragment)getParentFragment()).replaceFragment(recipeFragment, true);
 				
 	        }
 		});

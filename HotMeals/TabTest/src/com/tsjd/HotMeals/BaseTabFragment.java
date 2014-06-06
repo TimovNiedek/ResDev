@@ -6,21 +6,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import com.example.tabtest.R;
 
-public class BaseTabFragment extends Fragment 
-{
+public class BaseTabFragment extends Fragment implements FragmentManager.OnBackStackChangedListener
+{	
 	public void replaceFragment(Fragment fragment, boolean addToBackStack) {
+        
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
-        
-        try{
-        	transaction.replace(R.id.container_framelayout, fragment);
-            transaction.commit();
-	        getChildFragmentManager().executePendingTransactions();
-        } catch (Exception e) {
-        	throw new Error(e);
-        }
+        transaction.replace(R.id.container_framelayout, fragment);
+        transaction.commit();
+        getChildFragmentManager().executePendingTransactions();
     }
 	
 	public void addFragmentWithTransition(Fragment fragment, boolean addToBackStack) {
@@ -30,7 +26,7 @@ public class BaseTabFragment extends Fragment
         }
         
     	transaction.replace(R.id.container_framelayout, fragment);
-    	transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
+    	transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right).show(fragment).commit();
     	
         getChildFragmentManager().executePendingTransactions();
         
@@ -45,4 +41,9 @@ public class BaseTabFragment extends Fragment
         }
         return isPop;
     }
+
+	@Override
+	public void onBackStackChanged() {
+		
+	}
 }

@@ -76,13 +76,11 @@ public class HomeTab extends BaseTabFragment {
 		arguments.putParcelable("recipe", recipe);
 		Fragment recipeFragment = new RecipeContainerFragment();
 		recipeFragment.setArguments(arguments);
-		Log.d("NullTests", "recipeFragment: " + (recipeFragment == null));
-		Log.d("NullTests", "parentFragment: " + ((BaseTabFragment)getParentFragment() == null));
 		try {
-			((BaseTabFragment)getParentFragment()).addFragmentWithTransition(recipeFragment, true);
+			((BaseTabFragment)getParentFragment()).replaceFragment(recipeFragment, true);
 		} catch (Exception e) {
 			throw e;
-		}
+		} 
     }
     
     private ArrayList<Recipe> getRecipesFromCursor(Cursor c)
