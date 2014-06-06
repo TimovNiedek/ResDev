@@ -3,6 +3,7 @@ package com.tsjd.HotMeals;
 import java.util.ArrayList;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.tsjd.HotMeals.Recipe.Ingredient;
 public class HomeTab extends Fragment {
 
 	private DataBaseHelper recipesHelper;
+	private SQLiteDatabase recipesReadableDatabase;
 	private ArrayList<Recipe> recentRecipes;
 	
     @Override
@@ -35,10 +37,15 @@ public class HomeTab extends Fragment {
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText("Welcome to the Hotmeals App!");
         
-        //Cursor cursor = getRecentRecipes();
-        //recentRecipes = getRecipesFromCursor(cursor);
+        recipesReadableDatabase = recipesHelper.getReadableDatabase();
         
-        //ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
+        Cursor cursor = getRecentRecipes();
+        recentRecipes = getRecipesFromCursor(cursor);
+        cursor.close();
+        
+        recipesReadableDatabase.close();
+        
+        ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
         
         return v;
     }
@@ -57,6 +64,8 @@ public class HomeTab extends Fragment {
     		c.moveToNext();
     	}
     	
+    	c.close();
+    	
     	return recipes;
     }
     
@@ -68,14 +77,16 @@ public class HomeTab extends Fragment {
 		 * ORDER BY TimeViewed DESC
     	 */
     	
-    	String query;
+    	Cursor cursor;
+    	
+    	String query = "SELECT ID FROM HotMeals WHERE TimeViewed > 0 ORDER BY TimeViewed DESC";;
 		try {
-			query = "SELECT ID FROM HotMeals WHERE TimeViewed > 0 ORDER BY TimeViewed DESC";
+			cursor = recipesReadableDatabase.rawQuery(query, null);
+			recipesReadableDatabase.close();
 		} catch (Exception e) {
 			throw new Error(e);
 		}
-    	
-    	Cursor cursor = recipesHelper.getReadableDatabase().rawQuery(query, null);
+		    	
     	return cursor;
     }
     
@@ -93,10 +104,10 @@ public class HomeTab extends Fragment {
 		Cursor ingredientsCursor;
 		try {
 			String recipeQuery = "SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals WHERE ID = " + ID;
-			recipeCursor = recipesHelper.getReadableDatabase().rawQuery(recipeQuery, null);
+			recipeCursor = recipesReadableDatabase.rawQuery(recipeQuery, null);
 			
 			String ingredientsQuery = "SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = " + ID;
-			ingredientsCursor = recipesHelper.getReadableDatabase().rawQuery(ingredientsQuery, null);
+			ingredientsCursor = recipesReadableDatabase.rawQuery(ingredientsQuery, null);
 		} catch (Exception e1){
 			throw new Error(e1);
 		}
@@ -105,21 +116,29 @@ public class HomeTab extends Fragment {
     	
     	ingredientsCursor.moveToFirst();
 		try {
-			do{
+			while (!ingredientsCursor.isAfterLast()) { 
 				Recipe.Ingredient ingredient = new Recipe.Ingredient(ingredientsCursor.getFloat(ingredientsCursor.getColumnIndex("Hoeveelheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Eenheid")), 
 																	ingredientsCursor.getString(ingredientsCursor.getColumnIndex("Naam")));
 				ingredients.add(ingredient);
-			} while (ingredientsCursor.moveToNext());
+				ingredientsCursor.moveToNext();
+			}
 		} catch (Exception e) {
 			throw new Error(e);
 		}
 		
 		ingredientsCursor.close();
     	
-		recipeCursor.moveToFirst();
-    	boolean favorite = recipeCursor.getInt(4) == 1;
-    	Recipe recipe = new Recipe(recipeCursor.getString(0), ingredients, recipeCursor.getString(1), recipeCursor.getInt(2), recipeCursor.getFloat(3) / 100, favorite, recipeCursor.getInt(5), recipeCursor.getString(6));
+		Recipe recipe;
+		
+		try {
+			recipeCursor.moveToFirst();
+	    	boolean favorite = recipeCursor.getInt(4) == 1;
+	    	recipe = new Recipe(recipeCursor.getString(0), ingredients, recipeCursor.getString(1), recipeCursor.getInt(2), recipeCursor.getFloat(3) / 100, favorite, recipeCursor.getInt(5), recipeCursor.getString(6));
+	    	recipeCursor.close();
+		} catch (Exception e) {
+			throw new Error(e);
+		}
     	return recipe;
     }
 }
