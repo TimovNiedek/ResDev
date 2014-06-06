@@ -5,7 +5,7 @@
     android:background="@color/greenish"
     android:orientation="vertical">
     
-    <TextView
+    <!--<TextView
         android:id="@+id/rvView"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
@@ -14,13 +14,13 @@
         android:clickable="true"
         android:gravity="left|center_vertical"
         android:paddingLeft="16dp"
-        android:text="&lt; Go Back" />
+        android:text="&lt; Go Back" />-->
     
     <TextView
         android:id="@+id/rvtextViewName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rvView"
+        android:layout_marginTop="48dp"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:paddingRight="16dp"

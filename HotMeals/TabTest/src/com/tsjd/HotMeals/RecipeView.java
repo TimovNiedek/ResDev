@@ -69,7 +69,7 @@ public class RecipeView extends BaseTabFragment {
 		recipeTime = (TextView) v.findViewById(R.id.rvtextViewTijd);
 		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
-		backView = (View) v.findViewById(R.id.rvView);
+		backView = (View) v.findViewById(R.id.rvtextViewName);
 		MarginLayoutParams margins = (MarginLayoutParams) backView.getLayoutParams();
 		margins.topMargin = ((MainActivity) this.getActivity()).getTabBarHeight();
 		Log.d("Tab bar height", "" + ((MainActivity) this.getActivity()).getTabBarHeight());
