@@ -67,13 +67,7 @@ public class SearchFragment extends BaseTabFragment
         
         setRecipesHelper();
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
-        
-        
-        try {
-			Ingredient ingredient = new Ingredient(1.0f, "ml", "jizz");
-		} catch (Exception e) {
-			throw new Error(e);
-		}
+
         
         setIngredients();
         initializeUI(v);
