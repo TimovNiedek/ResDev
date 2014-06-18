@@ -112,7 +112,6 @@ public class MainActivity extends FragmentActivity {
     	return mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height;
     }
     
-    
     //Create database if none exists
     private void createDatabase()
     {

@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,32 +33,36 @@ public class HomeTab extends BaseTabFragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.home_layout, container, false);
         
+        //Retrieve databasehelper
         recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
         
+        //Initialize textview with introduction
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText("Welcome to the Hotmeals App!" + '\n'
         		+ "You can search for recipes by pressing the search tab," + '\n'
         		+ "or view recipes that you've marked as a favorite by pressing the favorites tab!" + '\n'
         		+ "Or if you like, browse the recipes you've recently viewed down below.");
+        
+        //Set top margins so that no overlap occurs
         MarginLayoutParams margins = (MarginLayoutParams) tv.getLayoutParams();
 		margins.topMargin = ((MainActivity) this.getActivity()).getTabBarHeight();
-		Log.d("Tab bar height", "" + ((MainActivity) this.getActivity()).getTabBarHeight());
 		tv.setLayoutParams(margins);
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
         
+        //Init database list
         Cursor cursor = getRecentRecipes();
         recentRecipes = getRecipesFromCursor(cursor);
-        Log.d("getRecentRecipes", "Size of recent recipes: "+ recentRecipes.size());
         cursor.close();
         
+        //Done with database
         recipesReadableDatabase.close();
+        
+        //Populate list
         final ListView recentsList = (ListView) v.findViewById(R.id.recentsList);
-        
-        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-        
         RecipeListViewAdapter adapter = new RecipeListViewAdapter(getActivity(), recipeArrayListToArray(recentRecipes));
 		recentsList.setAdapter(adapter);
 		
+		//When recipe in list clicked, go to recipe
 		recentsList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Recipe recipe = (Recipe)recentsList.getItemAtPosition(position);
@@ -72,6 +75,7 @@ public class HomeTab extends BaseTabFragment {
     
     private void goToRecipe(Recipe recipe)
     {
+    	//Go to recipeview using a bundle to pass along the recipe
     	Bundle arguments = new Bundle();
 		arguments.putParcelable("recipe", recipe);
 		Fragment recipeFragment = new RecipeContainerFragment();
@@ -85,12 +89,11 @@ public class HomeTab extends BaseTabFragment {
     
     private ArrayList<Recipe> getRecipesFromCursor(Cursor c)
     {
+    	//Move to first recipe
     	ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-    	
     	c.moveToFirst();
     	
-    	Log.d("getRecipesFromCursor:HomeTab", "Row count: " + c.getCount());
-    	
+    	//Then add all recipes in returned cursor to the arraylist
     	while (!c.isAfterLast())
     	{
     		try{
@@ -101,14 +104,16 @@ public class HomeTab extends BaseTabFragment {
     		c.moveToNext();
     	}
     	
+    	//Close cursor
     	c.close();
     	
+    	//Return said arraylist
     	return recipes;
     }
     
+    //Adapter needs array, so creates an array with same content as an arraylist
     private Recipe[] recipeArrayListToArray(ArrayList<Recipe> recipes)
 	{
-		
 		Recipe[] recipesArray;
 		try {
 			recipesArray = new Recipe[recipes.size()];
@@ -125,7 +130,8 @@ public class HomeTab extends BaseTabFragment {
     
     private Cursor getRecentRecipes()
     {
-    	/**
+    	//Use following query to retrieve recent recipe ID's
+    	/*
     	 * SELECT ID FROM HotMeals 
 		 * WHERE TimeViewed > 0
 		 * ORDER BY TimeViewed DESC
@@ -134,26 +140,28 @@ public class HomeTab extends BaseTabFragment {
     	Cursor cursor;
     	
     	String query = "SELECT ID FROM HotMeals WHERE TimeViewed > 0 ORDER BY TimeViewed DESC";
-		try {
+		
+    	//Apply query to cursor
+    	try {
 			cursor = recipesReadableDatabase.rawQuery(query, null);
 		} catch (Exception e) {
 			throw new Error(e);
 		}
 		
-		Log.d("getRecentRecipes", "Amt of rows: " + cursor.getCount());
-		    	
     	return cursor;
     }
     
     private Recipe getRecipeFromID(int ID)
     {
-    	/**
+    	//Use following query to convert ID's to recipes
+    	/*
     	 * SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals
 		 * WHERE ID = 1
 		 * 
 		 * SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = ...
     	 */
     	
+    	//Apply queries to cursors
     	Cursor recipeCursor;
 		Cursor ingredientsCursor;
 		try {
@@ -165,9 +173,9 @@ public class HomeTab extends BaseTabFragment {
 		} catch (Exception e1){
 			throw new Error(e1);
 		}
-    	
+    
+		//Create ingredients arraylist
     	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-    	
     	ingredientsCursor.moveToFirst();
 		try {
 			while (!ingredientsCursor.isAfterLast()) { 
@@ -180,11 +188,10 @@ public class HomeTab extends BaseTabFragment {
 		} catch (Exception e) {
 			throw new Error(e);
 		}
-		
 		ingredientsCursor.close();
     	
+		//Create recipe
 		Recipe recipe;
-		
 		try {
 			recipeCursor.moveToFirst();
 	    	boolean favorite = recipeCursor.getInt(4) == 1;
