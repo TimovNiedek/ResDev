@@ -1,5 +1,15 @@
 package com.tsjd.HotMeals;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 //import android.app.Fragment;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;

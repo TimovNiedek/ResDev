@@ -1,5 +1,15 @@
 package com.tsjd.HotMeals;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

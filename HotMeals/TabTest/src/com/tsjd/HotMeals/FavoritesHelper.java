@@ -18,8 +18,8 @@ public class FavoritesHelper {
 	}
 	
 	/**
-	 * Haal alle recepten die gemarkeerd zijn als favoriet uit de database
-	 * @return de recepten in een arraylist
+	 * Fill the favorites arraylist with all the recipes that are marked as favorite in the database
+	 * @return the favorites arraylist
 	 */
 	public ArrayList<Recipe> getFavorites(){
 		ArrayList<Recipe> favorites = new ArrayList<Recipe>();
@@ -50,6 +50,11 @@ public class FavoritesHelper {
 		return favorites;
 	}
 	
+	/**
+	 * Takes a row-number in its parameters, and returns a recipe
+	 * @param ID the row-number
+	 * @return a recipe instance
+	 */
 	private Recipe getRecipeFromID(int ID)
     {
     	/**
