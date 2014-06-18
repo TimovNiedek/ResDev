@@ -1,6 +1,15 @@
 package com.tsjd.HotMeals;
 
-//import android.app.Fragment;
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,7 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
+//import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +36,7 @@ public class RecipeView extends BaseTabFragment {
 	private TextView recipePrice;
 	private ImageView receptImage;
 	private Button favButton;
-	private View backView;
+	//private View backView;
 	
 	/**
 	 * Gets the databasehelper instance from the MainActivity.

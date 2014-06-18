@@ -1,5 +1,15 @@
 package com.tsjd.HotMeals;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +18,11 @@ import com.example.tabtest.R;
 
 public class BaseTabFragment extends Fragment implements FragmentManager.OnBackStackChangedListener
 {	
+	/**
+	 * Switch active fragment
+	 * @param fragment to go to
+	 * @param addToBackStack: whether or not to add new fragment to the backstack
+	 */
 	public void replaceFragment(Fragment fragment, boolean addToBackStack) {
         
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -21,6 +36,11 @@ public class BaseTabFragment extends Fragment implements FragmentManager.OnBackS
         getChildFragmentManager().executePendingTransactions();
     }
 	
+	/**
+	 * Switch fragment
+	 * @param fragment to go to
+	 * @param addToBackStack: whether or not to add new fragment to backstack
+	 */
 	public void addFragmentWithTransition(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         if (addToBackStack) {
@@ -34,8 +54,11 @@ public class BaseTabFragment extends Fragment implements FragmentManager.OnBackS
         
     }
 
+	/**
+	 * remove fragment
+	 * @return success?
+	 */
     public boolean popFragment() {
-        Log.e("test", "pop fragment: " + getChildFragmentManager().getBackStackEntryCount());
         boolean isPop = false;
         if (getChildFragmentManager().getBackStackEntryCount() > 0) {
             isPop = true;
@@ -44,8 +67,10 @@ public class BaseTabFragment extends Fragment implements FragmentManager.OnBackS
         return isPop;
     }
 
+    /**
+     * Standard override
+     */
 	@Override
 	public void onBackStackChanged() {
-		
 	}
 }
