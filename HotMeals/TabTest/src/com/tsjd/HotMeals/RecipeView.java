@@ -29,18 +29,26 @@ public class RecipeView extends BaseTabFragment {
 	private Button favButton;
 	private View backView;
 	
-	
+	/**
+	 * Gets the databasehelper instance from the MainActivity.
+	 */
 	private void setRecipesHelper()
     {
     	recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
     }
     
-	
+	/**
+	 * Android standard onCreate().
+	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 	
+	/**
+	 * Gets the recipe to be viewed from the bundle.
+	 * Updates the TimeViewed column in the database.
+	 */
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.recipe_view_fragment, container, false);
@@ -61,6 +69,11 @@ public class RecipeView extends BaseTabFragment {
         return v;
     }
 	
+	/**
+	 * Every view in the xml layout is initialized and set.
+	 * OnclickListeners are set.
+	 * @param v
+	 */
 	private void initializeUI(View v){
 		recipeName = (TextView) v.findViewById(R.id.rvtextViewName);
 		recipeIngredients = (TextView) v.findViewById(R.id.rvtextViewIngredients);
@@ -112,6 +125,9 @@ public class RecipeView extends BaseTabFragment {
 		});
 	}
 	
+	/**
+	 * A simple function to set the text on the button depending on whether or not it is a favourited recipe.
+	 */
 	private void setFavouriteButtonText(){
 		((MainActivity)this.getActivity()).updateFavorites = true;
 		if(recipe.favoriet()){
