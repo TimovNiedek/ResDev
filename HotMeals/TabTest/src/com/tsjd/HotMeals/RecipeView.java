@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
+//import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +27,7 @@ public class RecipeView extends BaseTabFragment {
 	private TextView recipePrice;
 	private ImageView receptImage;
 	private Button favButton;
-	private View backView;
+	//private View backView;
 	
 	/**
 	 * Gets the databasehelper instance from the MainActivity.

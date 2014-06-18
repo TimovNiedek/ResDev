@@ -25,7 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
     /**
      * Constructor
-     * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
+     * Initalizes the DataBasePath
      * @param context
      */
     public DataBaseHelper(Context context) {
@@ -37,7 +37,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }	
  
   /**
-     * Creates a empty database on the system and rewrites it with your own database.
+     * Creates a empty database on the system and rewrites it with the Database in the assets folder.
      * */
     public void createDataBase() throws IOException{
  
@@ -95,14 +95,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
  
     /**
-     * Copies your database from your local assets-folder to the just created empty database in the
-     * system folder, from where it can be accessed and handled.
+     * Copies the database from the assets-folder to the just created empty database in the
+     * system folder.
      * This is done by transfering bytestream.
      * */
     private void copyDataBase() throws IOException{
  
     	try {
-			//Open your local db as the input stream
+			//Open the local db as the input stream
 			InputStream myInput = myContext.getAssets().open(DB_NAME);
  
 			// Path to the just created empty db
@@ -130,6 +130,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
     }
  
+    /**
+     * Opens the database so it can be read and written.
+     * @throws SQLException
+     */
     public void openDataBase() throws SQLException{
  
     	//Open the database
@@ -138,11 +142,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
     }
     
+    /**
+     * a simple getter-function for the database.
+     * @return the SQLiteDatabase
+     */
     public SQLiteDatabase getDatabase()
     {
     	return myDataBase;
     }
  
+    
+    /**
+     * A simple helper function to close te database
+     */
     @Override
 	public synchronized void close() {
  
@@ -154,10 +166,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     	    //super.close();
  
 	}
-    
-    public void changeFavourite(boolean favourite, int idee){
+
+    /**
+     * A function to change the boolean value of the favourite column at a particular row
+     * @param favourite boolean value: favourite or not favourite
+     * @param idee the row-number
+     */
+    void changeFavourite(boolean favourite, int idee){
     	String Query;
-    	
+    	//Build a Query
     	if (favourite){
     		Query = "UPDATE HotMeals SET Favorite='0' WHERE ID="+idee;
     	}
@@ -165,12 +182,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     		Query = "UPDATE HotMeals SET Favorite='1' WHERE ID="+idee;
     	}
     	try{
+    		//Execute the previous mentioned query
     		myDataBase.execSQL(Query);
     	}catch (Exception e){
     		throw e;
     	}
     }
     
+    /**
+     * A function to update the TimeViewed column in the HotMeals table at a particular row
+     * @param time the new value of the TimeViewed column
+     * @param ID the row-number
+     */
     public void updateTimeViewed(int time, int ID){
     	String Query;
     	Query = "UPDATE HotMeals SET TimeViewed=" + time + " WHERE ID=" + ID;
@@ -192,8 +215,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
  
 	}
  
-        // Add your public helper methods to access and get content from the database.
-       // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
-       // to you to create adapters for your views.
- 
+       
 }
