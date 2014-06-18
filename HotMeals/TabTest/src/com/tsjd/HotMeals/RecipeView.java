@@ -10,7 +10,6 @@ package com.tsjd.HotMeals;
  *
  */
 
-//import android.app.Fragment;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;

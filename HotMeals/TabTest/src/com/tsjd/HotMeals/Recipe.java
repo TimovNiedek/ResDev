@@ -1,7 +1,7 @@
 package com.tsjd.HotMeals;
 
 import java.util.ArrayList;
-
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -217,7 +217,7 @@ public class Recipe implements Parcelable {
      * @param double value
      * @return string with two decimals
      */
-    public static String doubleToCurrency(double number)
+	public static String doubleToCurrency(double number)
     {
     	String result;
 		float epsilon = 0.004f; // 4 tenths of a cent
