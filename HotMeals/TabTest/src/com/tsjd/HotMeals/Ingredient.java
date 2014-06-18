@@ -24,12 +24,14 @@ public class Ingredient implements Parcelable{
         name = in.readString();
     }
 
+	//Parcelable needs this function
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	//Override standard write function
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeFloat(quantity);
@@ -37,8 +39,9 @@ public class Ingredient implements Parcelable{
 		dest.writeString(name);
 	}
 	
+	//Fairly standard parcel-creation code
 	public static final Parcelable.Creator<Ingredient> CREATOR = 
-            new Parcelable.Creator<Ingredient>() {
+        new Parcelable.Creator<Ingredient>() {
         public Ingredient createFromParcel(Parcel in) {
             return new Ingredient(in);
         }
