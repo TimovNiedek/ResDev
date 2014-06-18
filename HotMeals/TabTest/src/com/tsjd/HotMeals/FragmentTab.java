@@ -8,13 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 public class FragmentTab extends BaseTabFragment {
 
+	/**
+	 * Android-standard oncreate
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * initialize view, mostly
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
