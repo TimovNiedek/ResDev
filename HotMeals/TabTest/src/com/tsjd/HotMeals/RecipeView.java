@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-//import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +35,6 @@ public class RecipeView extends BaseTabFragment {
 	private TextView recipePrice;
 	private ImageView receptImage;
 	private Button favButton;
-	//private View backView;
 	
 	/**
 	 * Gets the databasehelper instance from the MainActivity.
@@ -91,14 +89,7 @@ public class RecipeView extends BaseTabFragment {
 		recipeTime = (TextView) v.findViewById(R.id.rvtextViewTijd);
 		receptImage = (ImageView) v.findViewById(R.id.rvimageViewMain);
 		favButton = (Button) v.findViewById(R.id.favouriteButton);
-		/*backView = (View) v.findViewById(R.id.rvtextViewName);
-		MarginLayoutParams margins = (MarginLayoutParams) backView.getLayoutParams();
-		margins.topMargin = ((MainActivity) this.getActivity()).getTabBarHeight();
-		Log.d("Tab bar height", "" + ((MainActivity) this.getActivity()).getTabBarHeight());
-		backView.setLayoutParams(margins);
-		backView.setClickable(true);*/
 		
-		//String pathName = "/TabTest/res/drawable-hdpi/"+ recipe.getPath()+".png"; 
 		String uri = "@drawable/"+ recipe.getPath();
 
 		try {
@@ -113,16 +104,10 @@ public class RecipeView extends BaseTabFragment {
 		recipeName.setText(recipe.getName());
 		recipeIngredients.setText(recipe.ingredientenToString());
 		recipeHowto.setText(recipe.getBereiding());
-		recipePrice.setText("Price per serving: "+ Recipe.doubleToCurrency(recipe.getPrice()));
+		recipePrice.setText("Price per serving: €"+ Recipe.doubleToCurrency(recipe.getPrice()));
 		recipeTime.setText("Time: "+ recipe.getTime()+" Minuten");
 		setFavouriteButtonText();
 		
-		/*backView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View V){
-				
-			}
-		});*/
 		favButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v){

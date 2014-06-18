@@ -109,7 +109,7 @@ public class SearchFragment extends BaseTabFragment
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				budgetText.setText("eur" + Recipe.doubleToCurrency((double)(progress)/100));
+				budgetText.setText("€" + Recipe.doubleToCurrency((double)(progress)/100));
 			}
 		});
         

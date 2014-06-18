@@ -71,7 +71,7 @@ public class RecipeListViewAdapter extends ArrayAdapter<Recipe> {
 		textView.setText(values[position].getName());
 
 		TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
-		secondLine.setText(values[position].getTime() + " min | â‚¬"
+		secondLine.setText(values[position].getTime() + " min | €"
 				+ Recipe.doubleToCurrency(values[position].getPrice()));
 
 		return rowView;
