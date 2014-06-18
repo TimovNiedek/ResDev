@@ -5,17 +5,6 @@
     android:background="@color/greenish"
     android:orientation="vertical">
     
-    <!--<TextView
-        android:id="@+id/rvView"
-        android:layout_width="fill_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/backgradient"
-        android:clickable="true"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="16dp"
-        android:text="&lt; Go Back" />-->
-    
     <TextView
         android:id="@+id/rvtextViewName"
         android:layout_width="fill_parent"
