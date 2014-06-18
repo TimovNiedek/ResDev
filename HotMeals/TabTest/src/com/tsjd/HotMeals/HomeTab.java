@@ -17,17 +17,33 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.tabtest.R;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 public class HomeTab extends BaseTabFragment {
 
 	private DataBaseHelper recipesHelper;
 	private SQLiteDatabase recipesReadableDatabase;
 	private ArrayList<Recipe> recentRecipes;
 	
+	/**
+	 * Android-standard onCreate
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Initialize necessary items such as database(helper), lists etc.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -73,9 +89,12 @@ public class HomeTab extends BaseTabFragment {
         return v;
     }
     
+    /**
+     * Go to recipeview using a bundle to pass along the recipe
+     * @param recipe to bundle and pass along
+     */
     private void goToRecipe(Recipe recipe)
     {
-    	//Go to recipeview using a bundle to pass along the recipe
     	Bundle arguments = new Bundle();
 		arguments.putParcelable("recipe", recipe);
 		Fragment recipeFragment = new RecipeContainerFragment();
@@ -87,6 +106,11 @@ public class HomeTab extends BaseTabFragment {
 		} 
     }
     
+    /**
+     * Fill arraylist with recipes from cursor
+     * @param cursor with recipes
+     * @return arraylist with recipes
+     */
     private ArrayList<Recipe> getRecipesFromCursor(Cursor c)
     {
     	//Move to first recipe
@@ -111,7 +135,11 @@ public class HomeTab extends BaseTabFragment {
     	return recipes;
     }
     
-    //Adapter needs array, so creates an array with same content as an arraylist
+    /**
+     * Adapter needs array, so creates an array with same content as an arraylist
+     * @param arraylist with recipes
+     * @return array with recipes
+     */
     private Recipe[] recipeArrayListToArray(ArrayList<Recipe> recipes)
 	{
 		Recipe[] recipesArray;
@@ -128,6 +156,10 @@ public class HomeTab extends BaseTabFragment {
 		return recipesArray;
 	}
     
+    /**
+     * Use SQL to get recent recipe ID's
+     * @return cursor with recent recipe ID's
+     */
     private Cursor getRecentRecipes()
     {
     	//Use following query to retrieve recent recipe ID's
@@ -151,6 +183,11 @@ public class HomeTab extends BaseTabFragment {
     	return cursor;
     }
     
+    /**
+     * Use SQL to retrieve recipe from recipe ID
+     * @param ID to retrieve recipe from
+     * @return recipe
+     */
     private Recipe getRecipeFromID(int ID)
     {
     	//Use following query to convert ID's to recipes
