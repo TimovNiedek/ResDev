@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
-
 public class Recipe implements Parcelable {
 
 	private int ID;
@@ -18,6 +16,17 @@ public class Recipe implements Parcelable {
 	private boolean favourite;
 	private String path;
 	
+	/**
+	 * Incredibly interesting constructor eh?
+	 * @param naam
+	 * @param ingredienten
+	 * @param bereiding
+	 * @param tijd
+	 * @param prijs
+	 * @param favoriet
+	 * @param idee
+	 * @param path
+	 */
 	public Recipe(String naam, ArrayList<Ingredient> ingredienten, String bereiding, int tijd, double prijs, boolean favoriet, int idee, String path){
 		this.name = naam;
 		this.ID = idee;
@@ -29,8 +38,12 @@ public class Recipe implements Parcelable {
 		this.path = path;
 	}
 	
+	/**
+	 * Create string from ingredients to display
+	 * @return string
+	 */
 	public String ingredientenToString(){
-		String result = "hoi";
+		String result;
 		
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < this.ingredients.size(); i++){
@@ -42,34 +55,66 @@ public class Recipe implements Parcelable {
 		return result;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return name
+	 */
 	public String getName(){
 		return this.name;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return ID
+	 */
 	public int getId(){
 		return this.ID;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return how to description
+	 */
 	public String getBereiding(){
 		return this.howto;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return time
+	 */
 	public int getTime(){
 		return this.time;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return name
+	 */
 	public double getPrice(){
 		return this.price;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return favourite
+	 */
 	public boolean favoriet(){
 		return this.favourite;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return path
+	 */
 	public String getPath(){
 		return this.path;
 	}
 	
+	/**
+	 * Incredibly interesting getter eh?
+	 * @return favourite
+	 */
 	public void toggleFavourite(){
 		if (this.favourite){
 			this.favourite = false;
@@ -79,6 +124,9 @@ public class Recipe implements Parcelable {
 		}
 	}
 	
+	/**
+	 * Parcel accepter which sets local recipe items
+	 */
 	@SuppressWarnings("unchecked")
 	public Recipe(Parcel in){
 		
@@ -102,12 +150,19 @@ public class Recipe implements Parcelable {
 		favourite = (in.readInt() == 1);
     }
 
+	
+	/**
+	 * Parcelable needs this function
+	 */
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * Write to parcel 
+	 */
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
@@ -133,6 +188,9 @@ public class Recipe implements Parcelable {
 		dest.writeString(path);
 	}
 	
+	/**
+	 * Fairly standard parcel-creation code
+	 */
 	public static final Parcelable.Creator<Recipe> CREATOR = 
             new Parcelable.Creator<Recipe>() {
         public Recipe createFromParcel(Parcel in) {
@@ -145,9 +203,9 @@ public class Recipe implements Parcelable {
     };
     
     /**
-     * Functie om een double waarde (voor budget) om te zetten naar een string met altijd twee decimalen
-     * @param number de double waarde
-     * @return de string
+     * Change double value to string with two decimals (to print as currency)
+     * @param double value
+     * @return string with two decimals
      */
     public static String doubleToCurrency(double number)
     {
@@ -159,7 +217,7 @@ public class Recipe implements Parcelable {
 		    result = String.format("%2.2f", number); // dj_segfault
 		}
 		
-		result.replace(" ", "");	// Als het budget < €10, haal de leegte weg van het tiental
+		result.replace(" ", "");	// Als het budget < 10, haal de leegte weg van het tiental
 		return result;
     }
 }

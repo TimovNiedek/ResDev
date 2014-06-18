@@ -11,6 +11,12 @@ public class Ingredient implements Parcelable{
 	public String unit;
 	public String name;
 	
+	/**
+	 * Manual constructor
+	 * @param quantity
+	 * @param unit
+	 * @param name
+	 */
 	public Ingredient(float quantity, String unit, String name)
 	{
 		this.quantity = quantity;
@@ -18,6 +24,10 @@ public class Ingredient implements Parcelable{
 		this.name = name;
 	}
 	
+	/**
+	 * Constructor using parcelable
+	 * @param in
+	 */
 	public Ingredient(Parcel in){
         quantity = in.readFloat();
         unit = in.readString();
