@@ -6,6 +6,16 @@ import java.lang.String;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 public class Ingredient implements Parcelable{
 	public float quantity;
 	public String unit;

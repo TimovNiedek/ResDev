@@ -1,15 +1,12 @@
 package com.tsjd.HotMeals;
 
 import java.util.ArrayList;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,6 +24,16 @@ import android.widget.TextView;
 
 import com.example.tabtest.R;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 public class SearchFragment extends BaseTabFragment 
 {
 	private MultiAutoCompleteTextView ingredientsView;
@@ -35,17 +42,21 @@ public class SearchFragment extends BaseTabFragment
 	private SeekBar timeBar;
 	private TextView timeText;
 	private Button searchButton;
-	//private TextView searchText;
-	
 	private DataBaseHelper recipesHelper;
 	private SQLiteDatabase recipesReadableDatabase;
 	private ArrayList<String> ingredients;
 	
+	/**
+	 * Android-standard oncreate
+	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+	/**
+	 * Initialize stuff like databasehelpers
+	 */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -71,7 +82,7 @@ public class SearchFragment extends BaseTabFragment
     }
     
     /**
-     * Voeg listeners toe aan de sliders, textview en button
+     * Add listeners to sliders, textview, button
      * @param v De parent view van de UI elementen
      */
     private void initializeUI(View v)
@@ -104,7 +115,7 @@ public class SearchFragment extends BaseTabFragment
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				budgetText.setText("€" + Recipe.doubleToCurrency((double)(progress)/100));
+				budgetText.setText("eur" + Recipe.doubleToCurrency((double)(progress)/100));
 			}
 		});
         
@@ -126,9 +137,7 @@ public class SearchFragment extends BaseTabFragment
 				timeText.setText(hours + "h " + mins + "m");
 			}
 		});
-        
-        //searchText = (TextView) v.findViewById(R.id.textView4);
-        
+                
         searchButton = (Button) v.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -136,9 +145,8 @@ public class SearchFragment extends BaseTabFragment
 				ingredientsView.performValidation();
 				
 				String ingredientsText = ingredientsView.getText().toString();
-				//if (ingredientsText.equals("")) ingredientsText = "niet ingevuld";
 				String budget = budgetText.getText().toString();
-				if (budget.equals("€0.00")) budget = "niet ingevuld";
+				if (budget.equals("eur0.00")) budget = "niet ingevuld";
 				String time = timeText.getText().toString();
 				if (time.equals("0h 0m")) time = "niet ingevuld";
 				
@@ -159,7 +167,10 @@ public class SearchFragment extends BaseTabFragment
         ingredientsView.clearFocus();
     }
     
-    //TODO: Vul de code in om naar de resultaten te gaan
+    /**
+     * Go to results to show recipes
+     * @param said recipes to show
+     */
     private void goToResults(ArrayList<Recipe> recipes)
     {
     	Log.d("goToResults", "Size of recipes is: " + recipes.size());
@@ -176,6 +187,11 @@ public class SearchFragment extends BaseTabFragment
 		((BaseTabFragment)getParentFragment()).replaceFragment(newFragment, true);
     }
     
+    /**
+     * Convert search ingredients to arraylist
+     * @param text from MultiAutocompleteTextView field
+     * @return
+     */
     private ArrayList<String> ingredientsTextToArray(String text)
     {
     	ArrayList<String> ingredients = new ArrayList<String>();
@@ -194,11 +210,9 @@ public class SearchFragment extends BaseTabFragment
 	    		
 				String[] ingredientsString;
 				ingredientsString  = replacedText.split("-");
-				Log.d("textToArray", "length: " + ingredientsString.length);
 	    		for (int i = 0; i < ingredientsString.length; i++)
 		    	{	
 		    		ingredients.add(ingredientsString[i]);
-		    		Log.d("textToArray", ingredientsString[i]);
 		    	}
 	    	} else {
 	    		ingredients.add(text);
@@ -207,11 +221,17 @@ public class SearchFragment extends BaseTabFragment
     	return ingredients;
     }
     
+    /**
+     * Set databasehelper
+     */
     private void setRecipesHelper()
     {
     	recipesHelper = ((MainActivity)this.getActivity()).getDatabaseHelper();
     }
     
+    /**
+     * Set matching ingredients to textfield
+     */
     private void setIngredients()
     {
     	Cursor cursor = getIngredientMatches();
@@ -224,16 +244,23 @@ public class SearchFragment extends BaseTabFragment
     	cursor.close();
     }
     
+    /**
+     * Add matching ingredients to MultiAutocompleteTextView
+     * @param ingredient to add
+     */
     private void addToAutocomplete(String ingredient)
     {
 		Log.d("addToAutocomplete", ingredients.contains(ingredient) + " for " + ingredient);
 		if (!ingredients.contains(ingredient))
 		{
 			ingredients.add(ingredient);
-			Log.d("setIngredients", ingredient + " added.");
 		}
     }
     
+    /**
+     * Get ingredient matches from database
+     * @return cursor with ingredient matches
+     */
     private Cursor getIngredientMatches() {
     	try{
     		
@@ -252,8 +279,16 @@ public class SearchFragment extends BaseTabFragment
     	}   
     }
     
+    /**
+     * Use SQL to search through the database to find matching ingredients
+     * @param ingredients
+     * @param maxPrice
+     * @param minutes
+     * @return cursor with recipes to show
+     */
     private Cursor search(ArrayList<String> ingredients, int maxPrice, int minutes)
     {
+    	//The SQL query to search the database
     	/* 
     	 * SELECT H.ID, H.Naam
 	     * FROM HotMeals H
@@ -263,9 +298,6 @@ public class SearchFragment extends BaseTabFragment
 		 * GROUP BY I.ID
      	 * ORDER BY COUNT(*) DESC, H.prijs DESC, H.tijd DESC
     	 */
-    	
-    	Log.d("Search", "Searching with maxPrice: " + maxPrice + " minutes: " + minutes);
-    	
     	
     	StringBuilder query = new StringBuilder();
     	query.append("SELECT H.ID, H.Naam "
@@ -290,8 +322,6 @@ public class SearchFragment extends BaseTabFragment
     	query.append("GROUP BY I.ID "
     			+ "ORDER BY COUNT(*) DESC, H.prijs DESC, H.tijd DESC");
     	
-    	Log.d("search", query.toString());
-    	
     	Cursor cursor;
 		try {
 			cursor = recipesReadableDatabase.rawQuery(query.toString(), null);
@@ -302,6 +332,11 @@ public class SearchFragment extends BaseTabFragment
     	return cursor;
     }
     
+    /**
+     * From cursor to arraylist
+     * @param cursor
+     * @return arraylist
+     */
     private ArrayList<Recipe> getRecipesFromCursor(Cursor c)
     {
     	Log.d("getRecipesFromCursor", "Amount of rows: " + c.getCount());
@@ -321,15 +356,20 @@ public class SearchFragment extends BaseTabFragment
     	return recipes;
     }
     
+    /**
+     * Retrieve recipe from recipe ID the other database
+     * @param ID
+     * @return recipe
+     */
     private Recipe getRecipeFromID(int ID)
     {
-    	/**
+    	//Use following SQL query to retrieve recipe from recipe ID
+    	/*
     	 * SELECT Naam, Bereiding, Tijd, Prijs, Favorite, ID, Path FROM HotMeals
 		 * WHERE ID = 1
 		 * 
 		 * SELECT Hoeveelheid, Eenheid, Naam FROM Ingredienten WHERE ID = ...
     	 */
-    	
     	
     	Cursor recipeCursor;
 		Cursor ingredientsCursor;
