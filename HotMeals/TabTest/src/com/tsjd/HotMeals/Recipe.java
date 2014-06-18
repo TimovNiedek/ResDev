@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Recipe implements Parcelable {
+import com.tsjd.HotMeals.Ingredient;
+
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Recipe implements Parcelable, Serializable {
 
 	private int ID;
 	private String name;

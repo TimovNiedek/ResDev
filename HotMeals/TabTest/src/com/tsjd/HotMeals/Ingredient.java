@@ -1,12 +1,12 @@
 package com.tsjd.HotMeals;
 
-import java.lang.Override;
-import java.lang.String;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Ingredient implements Parcelable{
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Ingredient implements Parcelable, Serializable{
 	public float quantity;
 	public String unit;
 	public String name;
