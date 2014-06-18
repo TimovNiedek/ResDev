@@ -42,7 +42,7 @@ public class HomeContainerFragment extends BaseTabFragment
      }
 
      /**
-      * Replace tab
+      * Replace fragment
       */
      private void initView() {
          replaceFragment(new HomeTab(), false);
