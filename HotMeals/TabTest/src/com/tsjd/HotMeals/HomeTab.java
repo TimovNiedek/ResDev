@@ -97,7 +97,7 @@ public class HomeTab extends BaseTabFragment {
     {
     	Bundle arguments = new Bundle();
 		arguments.putParcelable("recipe", recipe);
-		Fragment recipeFragment = new RecipeContainerFragment();
+		Fragment recipeFragment = new RecipeView();
 		recipeFragment.setArguments(arguments);
 		try {
 			((BaseTabFragment)getParentFragment()).replaceFragment(recipeFragment, true);

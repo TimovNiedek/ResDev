@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
@@ -61,7 +62,7 @@ public class MainActivity extends FragmentActivity {
                 mTabHost.newTabSpec("Home").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 HomeContainerFragment.class, null);
         mTabHost.addTab(
-                mTabHost.newTabSpec("Favorites").setIndicator("My Recipes", getResources().getDrawable(R.drawable.ic_action_favorite)),
+                mTabHost.newTabSpec("Favorites").setIndicator("Favorites", getResources().getDrawable(R.drawable.ic_action_favorite)),
                 RecipeListViewContainerFragment.class, favoritesBundle);
         mTabHost.addTab(
                 mTabHost.newTabSpec("Search").setIndicator("Search", getResources().getDrawable(R.drawable.ic_action_search)),
@@ -98,10 +99,11 @@ public class MainActivity extends FragmentActivity {
     public void onBackPressed() {
         boolean isPopFragment = false;
         String currentTabTag = mTabHost.getCurrentTabTag();
+        Log.d("onBackPressed", "Tag: " + currentTabTag);
         if (currentTabTag.equals("Home")) {
             isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("Home")).popFragment();
-        } else if (currentTabTag.equals("My Recipes")) {
-            isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("My Recipes")).popFragment();
+        } else if (currentTabTag.equals("Favorites")) {
+            isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("Favorites")).popFragment();
         } else if (currentTabTag.equals("Search")) {
             isPopFragment = ((BaseTabFragment)getSupportFragmentManager().findFragmentByTag("Search")).popFragment();
         } 
