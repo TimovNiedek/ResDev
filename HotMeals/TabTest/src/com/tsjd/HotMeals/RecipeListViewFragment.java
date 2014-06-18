@@ -64,7 +64,7 @@ public class RecipeListViewFragment extends BaseTabFragment {
 				Recipe recipe = (Recipe)listview.getItemAtPosition(position);
 				Bundle arguments = new Bundle();
 				arguments.putParcelable("recipe", recipe);
-				Fragment recipeFragment = new RecipeContainerFragment();
+				Fragment recipeFragment = new RecipeView();
 				recipeFragment.setArguments(arguments);
 				((BaseTabFragment)getParentFragment()).replaceFragment(recipeFragment, true);
 				

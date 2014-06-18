@@ -53,6 +53,7 @@ public class SearchFragment extends BaseTabFragment
         
         ingredients = new ArrayList<String>();
         
+        
         setRecipesHelper();
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
         
@@ -165,7 +166,7 @@ public class SearchFragment extends BaseTabFragment
     	
     	recipesReadableDatabase.close();
     
-		Fragment newFragment = new RecipeListViewContainerFragment();
+		Fragment newFragment = new RecipeListViewFragment();
 		
 		Bundle recipeBundle = new Bundle();
 		recipeBundle.putParcelableArrayList("recipes", recipes);

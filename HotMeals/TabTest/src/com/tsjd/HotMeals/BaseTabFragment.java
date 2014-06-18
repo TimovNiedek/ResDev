@@ -14,6 +14,7 @@ public class BaseTabFragment extends Fragment implements FragmentManager.OnBackS
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }
+        
         transaction.replace(R.id.container_framelayout, fragment);
         transaction.commit();
         getChildFragmentManager().executePendingTransactions();
