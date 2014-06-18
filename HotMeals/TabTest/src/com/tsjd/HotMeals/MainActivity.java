@@ -13,6 +13,16 @@ import android.widget.TextView;
 
 import com.example.tabtest.R;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 public class MainActivity extends FragmentActivity {
    
 	public static String PACKAGE_NAME;
@@ -22,6 +32,9 @@ public class MainActivity extends FragmentActivity {
 	public boolean updateFavorites = false;
     private DataBaseHelper myDbHelper;
 
+    /**
+     * Initialize necessary items such as tabs and database
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +91,9 @@ public class MainActivity extends FragmentActivity {
         mTabHost.getTabWidget().setStripEnabled(true);
     }
     
-    //Override standard back button functionality
+    /**
+     * Override standard back button functionality
+     */
     @Override
     public void onBackPressed() {
         boolean isPopFragment = false;
@@ -95,7 +110,10 @@ public class MainActivity extends FragmentActivity {
         }
     }
     
-    // Updates background colors of tab views using gradient PNG's.
+    /** 
+     * Updates background colors of tab views using gradient PNG's.
+     * @param mTabHost used to get child tabs and update them
+     */
     @SuppressWarnings("deprecation")
 	private void updateTabs(FragmentTabHost mTabHost) {
     	for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
@@ -107,12 +125,17 @@ public class MainActivity extends FragmentActivity {
     	mTabHost.getTabWidget().setStripEnabled(false);
     }
     
-    //Return tab bar height so as to set content areas at correct height (so that no overlap occurs)
+    /**
+     * Return tab bar height so as to set content areas at correct height (so that no overlap occurs)
+     * @return int height of tab bar
+     */
     public int getTabBarHeight() {
     	return mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height;
     }
     
-    //Create database if none exists
+    /**
+     * Create database if none exists
+     */
     private void createDatabase()
     {
     	myDbHelper = new DataBaseHelper(this);
@@ -129,7 +152,9 @@ public class MainActivity extends FragmentActivity {
 	 	}
     }
     
-    //Return databasehelper to objects that need to access database
+    /**
+     * @return databasehelper to objects that need to access database
+     */
     public DataBaseHelper getDatabaseHelper()
     {
     	return myDbHelper;
