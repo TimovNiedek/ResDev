@@ -68,11 +68,23 @@ public class RecipeListViewAdapter extends ArrayAdapter<Recipe> {
 			imageView.setImageDrawable(res);
 		}
 
-		textView.setText(values[position].getName());
-
 		TextView secondLine = (TextView) rowView.findViewById(R.id.secondLine);
-		secondLine.setText(values[position].getTime() + " min | €"
-				+ Recipe.doubleToCurrency(values[position].getPrice()));
+		TextView noResultsView = (TextView) rowView.findViewById(R.id.noresults);
+		
+		
+		if(values[position].getName() == "NoResults")
+		{
+			textView.setVisibility(View.GONE);
+			imageView.setVisibility(View.GONE);
+			secondLine.setVisibility(View.GONE);
+		} else {
+			noResultsView.setVisibility(View.GONE);
+			textView.setText(values[position].getName());
+			secondLine.setText(values[position].getTime() + " min | €"
+					+ Recipe.doubleToCurrency(values[position].getPrice()));
+			String ingredientsText = values[position].getName(); 
+		}
+
 
 		return rowView;
 	}

@@ -1,6 +1,7 @@
 package com.tsjd.HotMeals;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
@@ -62,8 +64,9 @@ public class SearchFragment extends BaseTabFragment
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         
-        ingredients = new ArrayList<String>();
+        this.getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         
+        ingredients = new ArrayList<String>();
         
         setRecipesHelper();
         recipesReadableDatabase = recipesHelper.getReadableDatabase();
@@ -136,6 +139,9 @@ public class SearchFragment extends BaseTabFragment
         searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(ingredientsView.getWindowToken(), 0);
+				
 				ingredientsView.performValidation();
 				
 				String ingredientsText = ingredientsView.getText().toString();
@@ -167,7 +173,15 @@ public class SearchFragment extends BaseTabFragment
      */
     private void goToResults(ArrayList<Recipe> recipes)
     {
-    	Log.d("goToResults", "Size of recipes is: " + recipes.size());
+    	
+    	
+    	if(recipes.size() == 0)
+    	{
+    		
+    		ArrayList<Ingredient> emptyIngredients = new ArrayList<Ingredient>();
+    		Recipe empty = new Recipe("NoResults", emptyIngredients, "", 0, 0.0, false, 9000, "");
+    		recipes.add(empty);
+    	}
     	
     	recipesReadableDatabase.close();
     

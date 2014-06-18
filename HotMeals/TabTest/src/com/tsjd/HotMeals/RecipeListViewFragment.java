@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -50,7 +51,7 @@ public class RecipeListViewFragment extends BaseTabFragment {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_recipelistview, container,
 				false);
-
+		
 		return v;
 	}
 
@@ -63,6 +64,9 @@ public class RecipeListViewFragment extends BaseTabFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		this.getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		
 		Bundle arguments = this.getArguments();
 		recipes = arguments.getParcelableArrayList("recipes");
 
