@@ -16,13 +16,11 @@ import com.example.tabtest.R;
 public class MainActivity extends FragmentActivity {
    
 	public static String PACKAGE_NAME;
-	
 	private FragmentTabHost mTabHost;
 	private ArrayList<Recipe> favorites = new ArrayList<Recipe>();
 	private Bundle favoritesBundle = new Bundle();
 	public boolean updateFavorites = false;
-	
-    DataBaseHelper myDbHelper;
+    private DataBaseHelper myDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class MainActivity extends FragmentActivity {
         favoritesBundle.putParcelableArrayList("recipes", favorites);
         
         //Add three tabs
-        
         mTabHost.addTab(
                 mTabHost.newTabSpec("Home").setIndicator("Home", getResources().getDrawable(R.drawable.custom_home)),
                 HomeContainerFragment.class, null);
@@ -60,7 +57,7 @@ public class MainActivity extends FragmentActivity {
         //Set update listener, call updateTab on each update
         mTabHost.setOnTabChangedListener(new OnTabChangeListener(){    
             public void onTabChanged(String tabID) {    
-            	// Update de favorieten
+            	// Update favorites
             	if(updateFavorites)
             	{
             		favorites = favoritesHelper.getFavorites();
@@ -81,6 +78,7 @@ public class MainActivity extends FragmentActivity {
         mTabHost.getTabWidget().setStripEnabled(true);
     }
     
+    //Override standard back button functionality
     @Override
     public void onBackPressed() {
         boolean isPopFragment = false;
@@ -97,9 +95,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
     
-    /*
-     * Updates background colors of tab views using gradient PNG's.
-     */
+    // Updates background colors of tab views using gradient PNG's.
     @SuppressWarnings("deprecation")
 	private void updateTabs(FragmentTabHost mTabHost) {
     	for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
@@ -111,36 +107,30 @@ public class MainActivity extends FragmentActivity {
     	mTabHost.getTabWidget().setStripEnabled(false);
     }
     
+    //Return tab bar height so as to set content areas at correct height (so that no overlap occurs)
     public int getTabBarHeight() {
     	return mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height;
     }
     
+    
+    //Create database if none exists
     private void createDatabase()
     {
     	myDbHelper = new DataBaseHelper(this);
         try {
-        	 
         	myDbHelper.createDataBase();
- 
 	 	} catch (IOException ioe) {
  			throw new Error("Unable to create database");
 	 	}
-	 
-	 	try {
-	 
+	 	
+        try {
 	 		myDbHelper.openDataBase();
-	 
 	 	}catch(SQLException sqle){
-	 
 	 		throw sqle;
-	 
 	 	}
-	 	
-	 	
     }
     
-    
-    
+    //Return databasehelper to objects that need to access database
     public DataBaseHelper getDatabaseHelper()
     {
     	return myDbHelper;
