@@ -1,5 +1,15 @@
 package com.tsjd.HotMeals;
 
+/**
+ * 
+ * @author Daniel Roeven
+ * @author Sander van Dam
+ * @author Timo van Niedek
+ * @author Jaco Schalij
+ * @version 0.5
+ *
+ */
+
 import com.example.tabtest.R;
 
 import android.os.Bundle;
@@ -26,6 +36,9 @@ public class SearchContainerFragment extends BaseTabFragment
          }
      }
 
+     /**
+      * Replace Fragment
+      */
      private void initView() {
          replaceFragment(new SearchFragment(), false);
      }
